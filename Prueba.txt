@@ -1,4 +1,0 @@
-Hola mundo
-soy eduardo
-
-y estamos probando el github
