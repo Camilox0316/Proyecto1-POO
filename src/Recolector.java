@@ -1,3 +1,3 @@
-public class Recolector {
+public class Recolector extends AgenteBase{
     
 }

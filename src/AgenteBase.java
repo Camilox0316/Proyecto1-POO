@@ -1,6 +1,6 @@
 public class AgenteBase {
-    private int[] posicion;
-    private String estado;
+    public int[] posicion;
+    public String estado;
     public AgenteBase(){
         this.posicion[0]=0;
         this.posicion[1]=0;
@@ -17,6 +17,9 @@ public class AgenteBase {
                 //mover
             //}
         }
+    }
+    public void deteccion(){
+        
     }
 }
 

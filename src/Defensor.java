@@ -1,3 +1,3 @@
-public class Defensor {
+public class Defensor extends AgenteBase{
     
 }
