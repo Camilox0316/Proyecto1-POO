@@ -1,5 +1,5 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        Mapa demo = new Mapa();
+        Interfaz demo = new Interfaz();
     }
 }
