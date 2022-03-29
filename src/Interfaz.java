@@ -23,12 +23,13 @@ public class Interfaz extends Mapa{
         this.tablero = new JLabel[filasColumnas][filasColumnas];
         panelLabel = new JPanel();
         panelLabel.setLayout(new GridLayout(filasColumnas,filasColumnas));
-        panelLabel.setBackground(Color.GREEN);
+        
         for (int i=0; i<filasColumnas;i++){
             for (int j=0; j<filasColumnas;j++){
-            JLabel etiqueta = new JLabel(i+","+j);
+            JLabel etiqueta = new JLabel(i+","+j); etiqueta.setOpaque(true);
             Border borde;
             borde=BorderFactory.createLineBorder(Color.black);
+            if (i%2==0){etiqueta.setBackground(Color.black);}
             etiqueta.setBorder(borde);
             tablero[i][j] = etiqueta;
             panelLabel.add(etiqueta);}
