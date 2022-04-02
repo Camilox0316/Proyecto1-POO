@@ -1,9 +1,10 @@
+import java.awt.Point;
 public class AgenteBase {
-    public int[] posicion;
-    public String estado;
+    protected Point posicionAgente;
+    protected Point posicionBase;
+    protected Point posicionAux;
+    protected String estado;
     public AgenteBase(){
-        this.posicion[0]=0;
-        this.posicion[1]=0;
         this.estado="buscando";
     }
     public void movimiento(){
