@@ -7,9 +7,10 @@ import javax.swing.ImageIcon; import javax.swing.JButton; import javax.swing.JFr
 import javax.swing.JLabel; import javax.swing.JOptionPane; import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
+import javax.swing.text.AttributeSet.ColorAttribute;
 
 public class Interfaz extends Mapa{
-    int filasColumnas = 50;
+    
     JFrame ventana;
     JPanel panelLabel;
     JLabel tablero[][];
@@ -19,21 +20,26 @@ public class Interfaz extends Mapa{
         crearLabels();
         ventana.pack(); ventana.setVisible(true);
     }
+
     private void crearLabels(){
-        this.tablero = new JLabel[filasColumnas][filasColumnas];
+        this.tablero = new JLabel[super.filasColumnas][super.filasColumnas];
         panelLabel = new JPanel();
-        panelLabel.setLayout(new GridLayout(filasColumnas,filasColumnas));
-        
-        for (int i=0; i<filasColumnas;i++){
-            for (int j=0; j<filasColumnas;j++){
+        panelLabel.setLayout(new GridLayout(super.filasColumnas,super.filasColumnas));
+        Border borde;
+        borde=BorderFactory.createLineBorder(Color.black);
+        for (int i=0; i<super.filasColumnas;i++){
+            for (int j=0; j<super.filasColumnas;j++){
             JLabel etiqueta = new JLabel(i+","+j); etiqueta.setOpaque(true);
-            Border borde;
-            borde=BorderFactory.createLineBorder(Color.black);
-            if (i%2==0){etiqueta.setBackground(Color.black);}
             etiqueta.setBorder(borde);
             tablero[i][j] = etiqueta;
             panelLabel.add(etiqueta);}
         }
         ventana.add(panelLabel, BorderLayout.CENTER);
+    }
+    private void pintarObjetos(){
+        for (int i= 0;i<super.listaObjetos.length;i++){
+            Objeto objeto = super.listaObjetos[i];
+            tablero[(int)objeto.posicion.getX()][(int) objeto.posicion.getY()].setBackground(objeto.color);
+        }
     }
 }
