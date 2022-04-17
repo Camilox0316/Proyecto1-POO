@@ -1,11 +1,21 @@
 import java.awt.Point;
 import java.awt.Color;
-public abstract class Objeto {
+public  class Objeto {
     int vida;
-    Point posicion;
+    Point posicion[];
     Color color;
     public  void reducirVida(){
-        vida -=1;
+        vida--;
     }
-    public abstract void asignarPos(Point punto);
+    public  void asignarPos(Point punto, int pborde){
+        posicion = new Point[4];
+        int x = (int) punto.getX();
+        int y = (int) punto.getY();
+        boolean flag = true;
+        posicion[0]=punto;
+        posicion[1]=new Point(x, y+1);
+        posicion[2]=new Point(x+1,y);
+        posicion[3]=new Point(x+1,y+1);
+
+    }
 }
