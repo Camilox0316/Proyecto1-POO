@@ -29,7 +29,7 @@ public class Interfaz extends Mapa{
         borde=BorderFactory.createLineBorder(Color.black);
         for (int i=0; i<filasColumnas;i++){
             for (int j=0; j<filasColumnas;j++){
-            JLabel etiqueta = new JLabel(i+","+j); etiqueta.setOpaque(true);
+            JLabel etiqueta = new JLabel(); etiqueta.setOpaque(true);
             etiqueta.setBorder(borde);
             tablero[i][j] = etiqueta;
             panelLabel.add(etiqueta);}

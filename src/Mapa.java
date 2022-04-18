@@ -7,7 +7,7 @@ public class Mapa {
     int cantidadAgentes;
     AgenteBase listaAgenteBase[];
     Point listaPuntos[];
-
+    //[5][3]
     public Mapa(){
         this.cantidadObjetos = 15;
         listaObjetos = new Objeto[cantidadObjetos];
@@ -35,9 +35,20 @@ public class Mapa {
     }
 
     public boolean encontrarPunto(Point punto){
+        int x, y, coordenadas[];
+        Point posiblesPuntos[];
         for (int i=0;i<listaPuntos.length;i++){
             if (listaPuntos[i].equals(punto)) {
+                System.out.println("Elemento lista: "+listaPuntos[i].getX() +", "+listaPuntos[i].getY()+ " = Punto a buscar: "+punto.getX()+", "+punto.getY());
+                System.out.println(listaPuntos[i].equals(punto));
             return true;}
+            /*x = (int) (punto.getX());  
+            y = (int) (punto.getY());
+
+            for (int j=0;j<4;j++){
+
+            }*/
+
         }
         return false;
     }
