@@ -14,10 +14,10 @@ public class Interfaz extends Mapa{
     JPanel panelLabel;
     JLabel tablero[][];
     public Interfaz(){
-        ventana = new JFrame("Mapa del enjambre");
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        crearLabels();
-        ventana.pack(); ventana.setVisible(true);
+        ventana = new JFrame("Mapa del enjambre"); ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        ventana.pack();  crearLabels(); ventana.setVisible(true);       
+
         manejoGui();
     }
 
@@ -40,7 +40,8 @@ public class Interfaz extends Mapa{
         for (int i= 0;i<super.listaObjetos.length;i++){
             Objeto objeto = super.listaObjetos[i];
             for (int j=0;j<4;j++){
-            tablero[(int) objeto.posicion[j].getX()][(int) objeto.posicion[j].getY()].setBackground(objeto.color);}
+            tablero[(int) objeto.posicion[j].getX()][(int) objeto.posicion[j].getY()].setBackground(objeto.color);
+            }
         }
     }
     private void manejoGui(){
