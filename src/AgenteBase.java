@@ -1,5 +1,7 @@
 import java.awt.Point;
 import java.lang.Math;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.RestoreAction;
 public class AgenteBase {
     public Point posicionAgente;
     protected Point posicionBase;
@@ -198,151 +200,65 @@ public class AgenteBase {
         }
         //cambio_estado(IDarriba1, IDabajo1, IDizquierda1, IDderecha1, IDarriba2, IDabajo2, IDizquierda2, IDderecha2);
     }
+    public int[] seEncuentra(int listaEnteros[], int pbuscado){
+        int resultado[] = new int[2];
+        for (int i=0; i<listaEnteros.length;i++){
+            if (listaEnteros[i]==pbuscado){
+                resultado[0] = 1; resultado[1] = i;
+                return  resultado;
+            }
+        }
+        resultado[0] = 0; resultado[1] = -1;
+        return resultado;
+    }
     public void cambio_estado(int Arriba1, int Abajo1, int Izquierda1, int Derecha1, int Arriba2, int Abajo2, int Izquierda2, int Derecha2){
         //Determinar Estado 
-        if (Arriba1==1 || Abajo1==1 || Derecha1==1 || Izquierda1==1 ||Arriba2==1 || Abajo2==1 || Derecha2==1 || Izquierda2==1){
-            //se detecta amenaza
+        int coordenadasX[] = {-1, -2, 1, 2, 0, 0, 0, 0}; int coordenadasY[] = {0, 0, 0, 0, 1, 2, -1, -2};
+        int arregloEnteros[] = {Arriba1, Arriba2, Abajo1, Abajo2,  Derecha1, Derecha2, Izquierda1, Izquierda2};
+        int flag[] = new int[2], i;
+        for (i=1;i<6;i++){
+            flag = seEncuentra(arregloEnteros, i);
+            if (flag[0]==1){ break;}
+        }
+        if (i==1){
             estado="alterado";
-            if (Arriba1==1){
-                posicionAuxAmenaza.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
-            }
-            else if (Arriba2==1){
-                posicionAuxAmenaza.setLocation(posicionAgente.getX()-2, posicionAgente.getY());
-            }
-            else if (Abajo1==1){
-                posicionAuxAmenaza.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
-            }
-            else if (Abajo2==1){
-                posicionAuxAmenaza.setLocation(posicionAgente.getX()+2, posicionAgente.getY());
-            }
-            else if (Derecha1==1){
-                posicionAuxAmenaza.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
-            }
-            else if (Derecha2==1){
-                posicionAuxAmenaza.setLocation(posicionAgente.getX(), posicionAgente.getY()+2);
-            }
-            else if (Izquierda1==1){
-                posicionAuxAmenaza.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
-            }
-            else if (Izquierda2==1){
-                posicionAuxAmenaza.setLocation(posicionAgente.getX(), posicionAgente.getY()-2);
-            }
-            acciones(Arriba1,Abajo1,Derecha1,Izquierda1,Arriba2,Abajo2,Derecha2,Izquierda2);
+            posicionAuxAmenaza.setLocation(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]);
         }
-        else if(Arriba1==2 || Abajo1==2 || Derecha1==2 || Izquierda1==2 ||Arriba2==2 || Abajo2==2 || Derecha2==2 || Izquierda2==2){
-            //se detecta recurso
+        else if (i==2){
             estado="recolectando";
-            if (Arriba1==2){
-                posicionAuxRecurso.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
-            }
-            else if (Arriba2==2){
-                posicionAuxRecurso.setLocation(posicionAgente.getX()-2, posicionAgente.getY());
-            }
-            else if (Abajo1==2){
-                posicionAuxRecurso.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
-            }
-            else if (Abajo2==2){
-                posicionAuxRecurso.setLocation(posicionAgente.getX()+2, posicionAgente.getY());
-            }
-            else if (Derecha1==2){
-                posicionAuxRecurso.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
-            }
-            else if (Derecha2==2){
-                posicionAuxRecurso.setLocation(posicionAgente.getX(), posicionAgente.getY()+2);
-            }
-            else if (Izquierda1==2){
-                posicionAuxRecurso.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
-            }
-            else if (Izquierda2==2){
-                posicionAuxRecurso.setLocation(posicionAgente.getX(), posicionAgente.getY()-2);
-            }
-            acciones(Arriba1,Abajo1,Derecha1,Izquierda1,Arriba2,Abajo2,Derecha2,Izquierda2);
+            posicionAuxRecurso.setLocation(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]);
         }
-        else if(Arriba1==3 || Abajo1==3 || Derecha1==3 || Izquierda1==3 ||Arriba2==3 || Abajo2==3 || Derecha2==3 || Izquierda2==3){
-            //se detecta agente alterado
+        else if (i==3){
+
         }
-        else if(Arriba1==4 || Abajo1==4 || Derecha1==4 || Izquierda1==4 ||Arriba2==4 || Abajo2==4 || Derecha2==4 || Izquierda2==4){
-            //se detecta agente recolectando
-            if (lleva_recurso==false){
-                if (Arriba1==4){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX()-1, posicionAgente.getY());
-                }
-                else if (Arriba2==4){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX()-2, posicionAgente.getY());
-                }
-                else if (Abajo1==4){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX()+1, posicionAgente.getY());
-                }
-                else if (Abajo2==4){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX()+2, posicionAgente.getY());
-                }
-                else if (Derecha1==4){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX(), posicionAgente.getY()+1);
-                }
-                else if (Derecha2==4){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX(), posicionAgente.getY()+2);
-                }
-                else if (Izquierda1==4){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX(), posicionAgente.getY()-1);
-                }
-                else if (Izquierda2==4){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX(), posicionAgente.getY()-2);
-                }
-                acciones(Arriba1,Abajo1,Derecha1,Izquierda1,Arriba2,Abajo2,Derecha2,Izquierda2);
-            }
+        else if (i==4){
+            //posicionAuxRecurso=getposrecurso(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]);
         }
-        else if(Arriba1==5 || Abajo1==5 || Derecha1==5 || Izquierda1==5 ||Arriba2==5 ||Arriba2==5 || Abajo2==5 || Derecha2==5 || Izquierda2==5){
-            //se detecta agente entregando
-            if (lleva_recurso==false){
-                if (Arriba1==5){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX()-1, posicionAgente.getY());
-                }
-                else if (Arriba2==5){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX()-2, posicionAgente.getY());
-                }
-                else if (Abajo1==5){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX()+1, posicionAgente.getY());
-                }
-                else if (Abajo2==5){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX()+2, posicionAgente.getY());
-                }
-                else if (Derecha1==5){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX(), posicionAgente.getY()+1);
-                }
-                else if (Derecha2==5){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX(), posicionAgente.getY()+2);
-                }
-                else if (Izquierda1==5){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX(), posicionAgente.getY()-1);
-                }
-                else if (Izquierda2==5){
-                    //posicionAuxRecurso=getposrecurso(posicionAgente.getX(), posicionAgente.getY()-2);
-                }
-                acciones(Arriba1,Abajo1,Derecha1,Izquierda1,Arriba2,Abajo2,Derecha2,Izquierda2);
+        else if (i==5){
+            if (!lleva_recurso){
+            //posicionAuxRecurso=getposrecurso(posicionAgente.getX()-1, posicionAgente.getY());
             }
-            else{
-                if (Arriba2==5){
-                    if (Arriba1==0){
-                        posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY());
-                    }
+            else if (Arriba2==5 && Arriba1==0){ 
+                    posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY());
                 }
-                else if (Abajo2==5){
-                    if (Abajo1==0){
-                        posicionAgente.setLocation(posicionAgente.getX()+1,posicionAgente.getY());
-                    }
+            else if (Abajo2==5 && Abajo1==0){
+                    posicionAgente.setLocation(posicionAgente.getX()+1,posicionAgente.getY());
                 }
-                else if (Derecha2==5){
-                    if (Derecha1==0){
-                        posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY()+1);
-                    }
+            else if (Derecha2==5 && Derecha1==0){
+                    posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY()+1);
                 }
-                else if (Izquierda2==5){
-                    if (Izquierda1==0){
-                        posicionAgente.setLocation(posicionAgente.getX(),posicionAgente.getY()-1);
-                    } 
+            else if (Izquierda2==5 && Izquierda1==0){
+                    posicionAgente.setLocation(posicionAgente.getX(),posicionAgente.getY()-1);
                 }
-            }
         }
+        if (!lleva_recurso || i<5) {acciones(Arriba1,Abajo1,Derecha1,Izquierda1,Arriba2,Abajo2,Derecha2,Izquierda2);}   
         
+    }
+    
+    public int retornarEstadoInt(){
+        if (estado == "alterado") return 3;
+        else if (estado == "recolectando") return 4;
+        else if (estado == "entregando") return 5;
+        return 0;
     }
 }

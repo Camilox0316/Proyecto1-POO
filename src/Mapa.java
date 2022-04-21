@@ -101,7 +101,9 @@ public class Mapa {
      public int getIDAgentes(int fila, int columna){
         Point punto = new Point(fila, columna);
         for (int i=0; i<listaAgenteBase.length;i++){
-            
+            if (listaAgenteBase[i].equals(punto)){
+                return listaAgenteBase[i].retornarEstadoInt();
+            }
         }
         return 0;
      }
