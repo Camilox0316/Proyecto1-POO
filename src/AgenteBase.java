@@ -229,12 +229,14 @@ public class AgenteBase {
             posicionAuxRecurso.setLocation(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]);
         }
         else if (i==3){
-
+            //detecta agente alterado
         }
         else if (i==4){
-            //posicionAuxRecurso=getposrecurso(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]);
+            //detecta agente recolectando
+            //posicionAuxRecurso.setLocation(getposrecurso(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]));
         }
         else if (i==5){
+            //detecta agente entregando
             if (!lleva_recurso){
             //posicionAuxRecurso=getposrecurso(posicionAgente.getX()-1, posicionAgente.getY());
             }

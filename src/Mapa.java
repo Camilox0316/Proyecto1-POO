@@ -106,7 +106,7 @@ public class Mapa {
             }
         }
         return 0;
-     }
+    }
 
     public void imprimirPuntos(){
         System.out.println("Impriemiendo puntos: ");
