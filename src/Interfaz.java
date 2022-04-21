@@ -29,7 +29,7 @@ public class Interfaz extends Mapa{
         borde=BorderFactory.createLineBorder(Color.black);
         for (int i=0; i<filasColumnas;i++){
             for (int j=0; j<filasColumnas;j++){
-            JLabel etiqueta = new JLabel(); etiqueta.setOpaque(true);
+            JLabel etiqueta = new JLabel(i+","+j); etiqueta.setOpaque(true);
             etiqueta.setBorder(borde);
             tablero[i][j] = etiqueta;
             panelLabel.add(etiqueta);}
@@ -37,12 +37,13 @@ public class Interfaz extends Mapa{
         ventana.add(panelLabel, BorderLayout.CENTER);
     }
     private void pintarObjetos(){
-        for (int i= 0;i<super.listaObjetos.length;i++){
-            Objeto objeto = super.listaObjetos[i];
+        for (int i= 0;i<listaObjetos.length;i++){
+            Objeto objeto = listaObjetos[i];
             for (int j=0;j<4;j++){
             tablero[(int) objeto.posicion[j].getX()][(int) objeto.posicion[j].getY()].setBackground(objeto.color);
             }
         }
+
     }
     private void manejoGui(){
         pintarObjetos();
