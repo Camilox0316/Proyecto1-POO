@@ -23,7 +23,7 @@ public class Mapa {
         inicializarListaPuntos();
         inicializarListaObjetos();
         inicializarListaAgentes();
-        //imprimirPuntos();
+        imprimirPuntos();
     }
     public Point generarPuntoRandom(){
         Point punto = new Point(generarNumRandom(48, 1), generarNumRandom(48, 1));
@@ -49,15 +49,16 @@ public class Mapa {
         return false;
     }
 
-    public void agregarPunto(Point ppuntoAgregar){ //Se utiliza para los Agentes
-        listaPuntos[indiceListaPuntos] = ppuntoAgregar;
+    public void agregarPunto(Point ppuntoAgregar, int pindice, boolean pflag){ //Se utiliza para los Agentes
+        listaPuntos[pindice] = ppuntoAgregar;
+        if (pflag) {indiceListaPuntos++;}
     }
     public Point crearAgregarPt(){
         Point punto = new Point();
         do {
             punto = generarPuntoRandom();
         } while (encontrarPunto(punto, listaPuntos));
-        agregarPunto(punto);
+        agregarPunto(punto, indiceListaPuntos, true);
         return punto;
     }
 
@@ -81,10 +82,11 @@ public class Mapa {
         return false;
     }
 
-    public void agregarPuntosAdyacentes(Point puntosAdyacentes[]){ // Se utiliza para los Objetos
+    public void agregarPuntosAdyacentes(Point puntosAdyacentes[], int pindice, boolean pflag){ // Se utiliza para los Objetos
         for (int i=0;i<4;i++){
-            listaPuntos[this.indiceListaPuntos]=puntosAdyacentes[i];
-            this.indiceListaPuntos++;
+            listaPuntos[pindice++]=puntosAdyacentes[i];
+            if (pflag){this.indiceListaPuntos++;}
+            
         }
     }
 
@@ -103,7 +105,7 @@ public class Mapa {
         do {
             puntosAdyacentes = crearPuntosAdyacentes(generarPuntoRandom());
         } while (encontrarPuntos(puntosAdyacentes));
-        agregarPuntosAdyacentes(puntosAdyacentes);
+        agregarPuntosAdyacentes(puntosAdyacentes, indiceListaPuntos, true);
         return puntosAdyacentes;
     }
 
@@ -122,7 +124,28 @@ public class Mapa {
             }
         }
     }
-  
+    
+    public int reemplazarPunto(Point ppuntoBusc, Point ppuntoreemplazo){
+        for (int i = 0; i < listaPuntos.length; i++) {
+            if (listaPuntos[i].equals(ppuntoBusc)){
+                agregarPunto(ppuntoreemplazo, i, false);
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int reemplazarPuntos(Point puntosAdyacentes[]){
+        for (int i = 0; i < listaPuntos.length; i++) {
+            if (listaPuntos[i].equals(puntosAdyacentes[0])){
+                for (int j=0;j<4;j++){
+                    agregarPunto(puntosAdyacentes[i], i+j, false);
+                }
+                return i;
+            }
+        }
+        return -1;
+    }
     public int getIDObjetos(int fila, int columna){
         //1=amenaza - 2=Recurso - 3=agenteALterado - 4=agenteRecolectando - 5=agenteEntregando - 6=obstaculo
         Point punto = new Point(fila, columna);
@@ -138,7 +161,7 @@ public class Mapa {
      public int getIDAgentes(int fila, int columna){
         Point punto = new Point(fila, columna);
         for (int i=0; i<listaAgenteBase.length;i++){
-            if (listaAgenteBase[i].equals(punto)){
+            if (listaAgenteBase[i].posicionAgente.equals(punto)){
                 return listaAgenteBase[i].retornarEstadoInt();
             }
         }

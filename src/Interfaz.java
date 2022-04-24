@@ -11,6 +11,8 @@ public class Interfaz extends Mapa{
     private JFrame ventana;
     private JPanel panelLabel;
     private JLabel tablero[][];
+    private JButton botonSig;
+
     public Interfaz(){
         ventana = new JFrame("Mapa del enjambre"); ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
@@ -23,7 +25,9 @@ public class Interfaz extends Mapa{
         pintarObjetos();
         pintarAgentes();
     }
-
+    private void crearBoton(){
+        botonSig = new JButton();
+    }
     private void crearLabels(){
         this.tablero = new JLabel[filasColumnas][filasColumnas];
         panelLabel = new JPanel();
