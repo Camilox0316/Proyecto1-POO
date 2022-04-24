@@ -25,22 +25,92 @@ public class Mapa {
         inicializarListaAgentes();
         //imprimirPuntos();
     }
+    public Point generarPuntoRandom(){
+        Point punto = new Point(generarNumRandom(48, 1), generarNumRandom(48, 1));
+        return punto;
+    }
+
+    public int generarNumRandom(int plimite, int pminimo){
+        return (int) (Math.random()*(plimite-pminimo) + pminimo);
+    }
+
     public void inicializarListaPuntos(){
         for (int i=0;i<listaPuntos.length;i++){
             listaPuntos[i] = new Point(-1,-1);
         }
     }
 
+    //                                  Métodos para inicializar lista Agentes
+    public boolean encontrarPunto(Point puntoBuscado, Point plistaPuntos[]){ //Es para los agentes
+        for (Point punto : plistaPuntos) {
+            if (punto.equals(puntoBuscado))
+            return true;
+        }
+        return false;
+    }
+
+    public void agregarPunto(Point ppuntoAgregar){ //Se utiliza para los Agentes
+        listaPuntos[indiceListaPuntos] = ppuntoAgregar;
+    }
+    public Point crearAgregarPt(){
+        Point punto = new Point();
+        do {
+            punto = generarPuntoRandom();
+        } while (encontrarPunto(punto, listaPuntos));
+        agregarPunto(punto);
+        return punto;
+    }
+
+    public void inicializarListaAgentes(){
+        Point punto;
+        int aleatorio;
+        for (int i=0;i<listaAgenteBase.length;i++) {
+            punto = crearAgregarPt();
+            aleatorio = generarNumRandom(2, 0);
+            if (aleatorio==1) listaAgenteBase[i] = new Recolector(punto);
+            else listaAgenteBase[i] = new Defensor(punto);
+        }
+    }
+    //                                                     Métodos para inicializar la lista de Objetos
+
+    public boolean encontrarPuntos(Point puntosAdyacentes[]){ //Es para los objetos
+        for (int i=0;i<listaPuntos.length;i++){
+            if (encontrarPunto(listaPuntos[i], puntosAdyacentes)){
+                return true;}
+        }
+        return false;
+    }
+
+    public void agregarPuntosAdyacentes(Point puntosAdyacentes[]){ // Se utiliza para los Objetos
+        for (int i=0;i<4;i++){
+            listaPuntos[this.indiceListaPuntos]=puntosAdyacentes[i];
+            this.indiceListaPuntos++;
+        }
+    }
+
+    public Point[] crearPuntosAdyacentes(Point punto){
+        int coordenadasX[] = {0,0,1,1}, coordenadasY[] = {0,1,0,1};
+        int x = (int) (punto.getX()),  y = (int) (punto.getY());
+        Point puntosAdyacentes[] = new Point[4];
+        for (int i = 0; i<4;i++){
+            puntosAdyacentes[i] = new Point (coordenadasX[i]+x, coordenadasY[i]+y);
+        }
+        return puntosAdyacentes;
+    }
+    
+    public Point[] crearAgregrarPtsAdyacentes(){
+        Point puntosAdyacentes[] = new Point[4]; 
+        do {
+            puntosAdyacentes = crearPuntosAdyacentes(generarPuntoRandom());
+        } while (encontrarPuntos(puntosAdyacentes));
+        agregarPuntosAdyacentes(puntosAdyacentes);
+        return puntosAdyacentes;
+    }
+
     public void inicializarListaObjetos(){
         Point puntosAdyacentes[]; 
-        for (int i=0;i<cantidadObjetos;i++){ 
-            do {
-                
-                puntosAdyacentes = crearPuntosAdyacentes(generarPuntoRandom());
-
-            } while (encontrarPuntos(puntosAdyacentes)); //Se mantiene el ciclo mientras los puntos recien hechos sean diferentes a los demás
-            agregarPuntosAdyacentes(i, puntosAdyacentes);
-            
+        for (int i=0;i<cantidadObjetos;i++){         
+            puntosAdyacentes = crearAgregrarPtsAdyacentes();
             if (i<5) {
                 listaObjetos[i] = new Recurso(puntosAdyacentes, filasColumnas-1);
             }
@@ -52,70 +122,7 @@ public class Mapa {
             }
         }
     }
-
-    public void inicializarListaAgentes(){
-        Point punto;
-        int aleatorio;
-        for (int i=0;i<listaAgenteBase.length;i++) {
-            do {
-                punto = generarPuntoRandom();
-            } while (encontrarPunto(punto));
-            agregarPunto(punto);
-            aleatorio = generarNumRandom(2, 0);
-            if (aleatorio==1) listaAgenteBase[i] = new Recolector(punto);
-            else listaAgenteBase[i] = new Defensor(punto);
-        }
-    }
-
-    public Point generarPuntoRandom(){
-        Point punto = new Point(generarNumRandom(48, 1), generarNumRandom(48, 1));
-        return punto;
-    }
-    public boolean encontrarPunto(Point puntoBuscado){
-        for (Point punto : listaPuntos) {
-            if (punto.equals(puntoBuscado))
-            return true;
-        }
-        return false;
-    }
-    public boolean encontrarPuntos(Point puntosAdyacentes[]){
-        for (int i=0;i<listaPuntos.length;i++){
-            for (int j=0;j<4;j++){
-                if (listaPuntos[i].equals(puntosAdyacentes[j])) {
-                    System.out.println(true);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public void agregarPunto(Point ppuntoAgregar){ //Se utiliza para los Agentes
-        listaPuntos[indiceListaPuntos] = ppuntoAgregar;
-    }
-
-    public void agregarPuntosAdyacentes(int index, Point puntosAdyacentes[]){ // Se utiliza para los Objetos
-        for (int i=0;i<4;i++){
-            listaPuntos[this.indiceListaPuntos]=puntosAdyacentes[i];
-            this.indiceListaPuntos++;
-        }
-    }
-    
-    public Point[] crearPuntosAdyacentes(Point punto){
-        int coordenadasX[] = {0,0,1,1}, coordenadasY[] = {0,1,0,1};
-        int x = (int) (punto.getX()),  y = (int) (punto.getY());
-        Point puntosAdyacentes[] = new Point[4];
-        for (int i = 0; i<4;i++){
-            puntosAdyacentes[i] = new Point (coordenadasX[i]+x, coordenadasY[i]+y);
-        }
-        return puntosAdyacentes;
-    }
-
-
-    public int generarNumRandom(int plimite, int pminimo){
-        return (int) (Math.random()*(plimite-pminimo) + pminimo);
-    }
-    
+  
     public int getIDObjetos(int fila, int columna){
         //1=amenaza - 2=Recurso - 3=agenteALterado - 4=agenteRecolectando - 5=agenteEntregando - 6=obstaculo
         Point punto = new Point(fila, columna);
