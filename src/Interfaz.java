@@ -3,22 +3,25 @@ import java.awt.Color;
 import java.awt.GridLayout; import java.awt.event.*;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon; import javax.swing.JButton; import javax.swing.JFrame;
-import javax.swing.JLabel; import javax.swing.JOptionPane; import javax.swing.JPanel;
+import javax.swing.JButton; import javax.swing.JFrame;
+import javax.swing.JLabel;  import javax.swing.JPanel;
 import javax.swing.border.Border;
-import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
-import javax.swing.text.AttributeSet.ColorAttribute;
 
 public class Interfaz extends Mapa{
-    JFrame ventana;
-    JPanel panelLabel;
-    JLabel tablero[][];
+    private JFrame ventana;
+    private JPanel panelLabel;
+    private JLabel tablero[][];
     public Interfaz(){
         ventana = new JFrame("Mapa del enjambre"); ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         ventana.pack();  crearLabels(); ventana.setVisible(true);       
 
         manejoGui();
+    }
+
+    private void manejoGui(){
+        pintarObjetos();
+        pintarAgentes();
     }
 
     private void crearLabels(){
@@ -36,6 +39,7 @@ public class Interfaz extends Mapa{
         }
         ventana.add(panelLabel, BorderLayout.CENTER);
     }
+    
     private void pintarObjetos(){
         for (int i= 0;i<listaObjetos.length;i++){
             Objeto objeto = listaObjetos[i];
@@ -43,9 +47,11 @@ public class Interfaz extends Mapa{
             tablero[(int) objeto.posicion[j].getX()][(int) objeto.posicion[j].getY()].setBackground(objeto.color);
             }
         }
+    }
+     private void pintarAgentes(){
+         for (AgenteBase agenteBase : listaAgenteBase) {
+             tablero[(int) agenteBase.posicionAgente.getX()][(int) agenteBase.posicionAgente.getY()].setBackground(agenteBase.color);
+         }
+     }
 
-    }
-    private void manejoGui(){
-        pintarObjetos();
-    }
 }

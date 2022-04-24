@@ -5,5 +5,13 @@ public class Obstaculo extends Objeto {
         asignarPos(punto, pborde);
         super.color = Color.BLACK;
     }
-    
+    /*@Override
+    public void asignarPos(Point puntos[], int pborde){
+        return;
+    }*/
+    @Override
+    public void reducirVida() {
+        // TODO Auto-generated method stub
+        
+    }
 }

@@ -1,5 +1,19 @@
-public class Defensor extends Recolector{
-    public void atacar(){
+import java.awt.Color;
+import java.awt.Point;
+
+public class Defensor extends AgenteBase{
+
+    public Defensor(Point punto){
+        posicionAgente = new Point(punto);
+        posicionBase = new Point(0,0);
+        posicionAuxAmenaza = new Point(0,0);
+        posicionAuxRecurso = new Point(0,0);
+        lleva_recurso = false;
+        estado = "buscando";
+        super.color=Color.green;
+    }
+
+    /*public void atacar(){
         if (posicionAgente.getX()-1>=0){
             //int IDarriba1=getID(posicionAgente.getX()-1, posicionAgente.getY());
         }
@@ -117,5 +131,5 @@ public class Defensor extends Recolector{
     public void ejecutar(){
         deteccion();
         atacar();
-    }
+    }*/
 }

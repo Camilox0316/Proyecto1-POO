@@ -6,9 +6,11 @@ public  class Objeto {
     Color color;
     public char[] getClass;
     public char[] retornarClaseInt;
+
     public  void reducirVida(){
         vida--;
     }
+
     public  void asignarPos(Point puntos[], int pborde){
         posicion = new Point[4];
         int coordenadasX[] = {0,1,1}, coordenadasY[] = {1,0,1};
@@ -19,9 +21,11 @@ public  class Objeto {
             posicion[i] = new Point (coordenadasX[i-1]+x, coordenadasY[i-1]+y);
         }
     }
+
     private String retornarClase(){
         return this.getClass().getSimpleName();
     }
+    
     public int retornarClaseInt(){
         String nombre = retornarClase();
         if (nombre == "Amenaza") 
