@@ -7,18 +7,25 @@ import javax.swing.JButton; import javax.swing.JFrame;
 import javax.swing.JLabel;  import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-public class Interfaz extends Mapa{
+public class Interfaz extends Mapa implements ActionListener{
     private JFrame ventana;
     private JPanel panelLabel;
     private JLabel tablero[][];
     private JButton botonSig;
+    private JPanel panelBoton;
 
     public Interfaz(){
         ventana = new JFrame("Mapa del enjambre"); ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        ventana.pack();  crearLabels(); ventana.setVisible(true);       
-
+        manejoVentana(); 
         manejoGui();
+    }
+    
+    private void manejoVentana(){
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        ventana.pack();  
+        crearLabels();
+        crearBoton();
+        ventana.setVisible(true);
     }
 
     private void manejoGui(){
@@ -26,7 +33,11 @@ public class Interfaz extends Mapa{
         pintarAgentes();
     }
     private void crearBoton(){
-        botonSig = new JButton();
+        panelBoton = new JPanel();
+        botonSig = new JButton("Tick");
+        botonSig.addActionListener(this);
+        panelBoton.add(botonSig, BorderLayout.NORTH);
+        ventana.add(botonSig, BorderLayout.NORTH);
     }
     private void crearLabels(){
         this.tablero = new JLabel[filasColumnas][filasColumnas];
@@ -57,5 +68,11 @@ public class Interfaz extends Mapa{
              tablero[(int) agenteBase.posicionAgente.getX()][(int) agenteBase.posicionAgente.getY()].setBackground(agenteBase.color);
          }
      }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(botonSig)){
+        } 
+    }
 
 }

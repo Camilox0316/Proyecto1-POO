@@ -12,7 +12,7 @@ public class Mapa {
     public Mapa(){
         this.cantidadObjetos = 15;
         listaObjetos = new Objeto[cantidadObjetos];
-        this.cantidadAgentes = 5;//generarNumRandom(50, 40);
+        this.cantidadAgentes = 15;//generarNumRandom(50, 40);
         listaAgenteBase = new AgenteBase[cantidadAgentes];
         listaPuntos = new Point[(cantidadObjetos+cantidadAgentes)*4];
         juego();
