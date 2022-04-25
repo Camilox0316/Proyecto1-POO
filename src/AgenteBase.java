@@ -146,69 +146,65 @@ public class AgenteBase {
             }
         }
     }
-
-    public void deteccion(){
-        int posiciones[] = {-1,-1,-1,-1,-1,-1,-1,-1};
-        //int posiciones[] = {IDarriba1, IDabajo1, IDderecha1, IDizquierda1, IDarriba2, IDabajo2, IDderecha2, IDizquierda2}
-        int filas[] = {-1, 1, 0, 0, 2, -2, 0, 0}; int columnas[] = {0, 0, 1,-1, 0, 0, 2,-2};
-        int agentePosX = (int) (posicionAgente.getX());
-        int agentePosY = (int) (posicionAgente.getY());
-        if (agentePosX-1>=0){
-            //int IDarriba1=getID(posicionAgente.getX()-1, posicionAgente.getY());
+    public void deteccion(Mapa mapa){
+        int IDarriba1, IDabajo1 , IDderecha1, IDizquierda1,IDarriba2,IDabajo2,IDderecha2,IDizquierda2;
+        
+        if (posicionAgente.getX()-1>=0){
+            IDarriba1=mapa.getID(posicionAgente.getX()-1, posicionAgente.getY());
         }
         else{
-            //int IDArriba1=8;
+            IDarriba1=8;
         }
 
-        if (agentePosX+1<=49){
-            //int IDabajo1=getID(posicionAgente.getX()+1, posicionAgente.getY());
+        if (posicionAgente.getX()+1<=49){
+            IDabajo1=mapa.getID(posicionAgente.getX()+1, posicionAgente.getY());
         }
         else{
-            //int IDabajo1=8;
+            IDabajo1=8;
         }
 
-        if (agentePosY+1<=49){
-            //int IDderecha1=getID(posicionAgente.getX(), posicionAgente.getY()+1);
+        if (posicionAgente.getY()+1<=49){
+            IDderecha1=mapa.getID(posicionAgente.getX(), posicionAgente.getY()+1);
         }
         else{
-            //int IDderecha1=8;
+            IDderecha1=8;
         }
 
-        if (agentePosY-1>=0){
-            //int IDizquierda1=getID(posicionAgente.getX(), posicionAgente.getY()-1);
+        if (posicionAgente.getY()-1>=0){
+            IDizquierda1=mapa.getID(posicionAgente.getX(), posicionAgente.getY()-1);
         }
         else{
-            //int IDizquierda1=8;
+            IDizquierda1=8;
         }
         
-        if (agentePosX-2>=0){
-            //int IDarriba2=getID(posicionAgente.getX()-2, posicionAgente.getY());
+        if (posicionAgente.getX()-2>=0){
+            IDarriba2=mapa.getID(posicionAgente.getX()-2, posicionAgente.getY());
         }
         else{
-            //int IDArriba2=8;
+            IDarriba2=8;
         }
 
-        if (agentePosX+2<=49){
-            //int IDabajo2=getID(posicionAgente.getX()+2, posicionAgente.getY());
+        if (posicionAgente.getX()+2<=49){
+            IDabajo2=mapa.getID(posicionAgente.getX()+2, posicionAgente.getY());
         }
         else{
-            //int IDabajo2=8;
+            IDabajo2=8;
         }
 
-        if (agentePosY+2<=49){
-            //int IDderecha2=getID(posicionAgente.getX(), posicionAgente.getY()+2);
+        if (posicionAgente.getY()+2<=49){
+            IDderecha2=mapa.getID(posicionAgente.getX(), posicionAgente.getY()+2);
         }
         else{
-            //int IDderecha2=8;
+            IDderecha2=8;
         }
 
-        if (agentePosY-2>=0){
-            //int IDizquierda2=getID(posicionAgente.getX(), posicionAgente.getY()-2);
+        if (posicionAgente.getY()-2>=0){
+            IDizquierda2=mapa.getID(posicionAgente.getX(), posicionAgente.getY()-2);
         }
         else{
-            //int IDizquierda2=8;
+            IDizquierda2=8;
         }
-        //cambio_estado(IDarriba1, IDabajo1, IDizquierda1, IDderecha1, IDarriba2, IDabajo2, IDizquierda2, IDderecha2);
+        cambio_estado(IDarriba1, IDabajo1, IDizquierda1, IDderecha1, IDarriba2, IDabajo2, IDizquierda2, IDderecha2);
     }
     public int[] seEncuentra(int listaEnteros[], int pbuscado){
         int resultado[] = new int[2];
@@ -240,30 +236,32 @@ public class AgenteBase {
             posicionAuxRecurso.setLocation(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]);
         }
         else if (i==3){
-
+            //detecta agente alterado
+            //posicionAuxAmenaza.setLocation(getposrecurso(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]));
         }
         else if (i==4){
-            //posicionAuxRecurso=getposrecurso(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]);
+            //detecta agente recolectando
+            //posicionAuxRecurso.setLocation(getposrecurso(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]));
         }
         else if (i==5){
+            //detecta agente entregando
             if (!lleva_recurso){
-            //posicionAuxRecurso=getposrecurso(posicionAgente.getX()-1, posicionAgente.getY());
+                //posicionAuxRecurso=getposrecurso(posicionAgente.getX()-1, posicionAgente.getY());
             }
             else if (Arriba2==5 && Arriba1==0){ 
-                    posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY());
-                }
+                posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY());
+            }
             else if (Abajo2==5 && Abajo1==0){
-                    posicionAgente.setLocation(posicionAgente.getX()+1,posicionAgente.getY());
-                }
+                posicionAgente.setLocation(posicionAgente.getX()+1,posicionAgente.getY());
+            }
             else if (Derecha2==5 && Derecha1==0){
-                    posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY()+1);
+                posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY()+1);
                 }
             else if (Izquierda2==5 && Izquierda1==0){
-                    posicionAgente.setLocation(posicionAgente.getX(),posicionAgente.getY()-1);
-                }
+                posicionAgente.setLocation(posicionAgente.getX(),posicionAgente.getY()-1);
+            }
         }
-        if (!lleva_recurso || i<5) {acciones(Arriba1,Abajo1,Derecha1,Izquierda1,Arriba2,Abajo2,Derecha2,Izquierda2);}   
-        
+        if (lleva_recurso || i<5) {acciones(Arriba1,Abajo1,Derecha1,Izquierda1,Arriba2,Abajo2,Derecha2,Izquierda2);}   
     }
     
     public int retornarEstadoInt(){
@@ -271,5 +269,8 @@ public class AgenteBase {
         else if (estado == "recolectando") return 4;
         else if (estado == "entregando") return 5;
         return 0;
+    }
+    public void ejecutar(){
+        System.out.println("hola");
     }
 }

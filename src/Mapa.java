@@ -168,7 +168,7 @@ public class Mapa {
     }
 
     public int getIDObjetos(int fila, int columna){
-        //1=amenaza - 2=Recurso - 3=agenteALterado - 4=agenteRecolectando - 5=agenteEntregando - 6=obstaculo
+        //0= esapcio disponible - 1=amenaza - 2=Recurso - 3=agenteALterado - 4=agenteRecolectando - 5=agenteEntregando - 6=obstaculo 8 fuera de rango
         Point punto = new Point(fila, columna);
         for (int i=0; i<listaObjetos.length;i++){
             Objeto objetoActu = listaObjetos[i];
@@ -200,12 +200,19 @@ public class Mapa {
                 Point puntosAdyacentes[] = generarPtsAdyNoEncontrado();
                 reemplazarPuntos(listaObjetos[i].posicion, puntosAdyacentes);
                 listaObjetos[i].asignarVida();
-                listaObjetos[i].cambiarPosicion(puntosAdyacentes[0]);
-            }
-            if (listaObjetos[i].retornarClaseInt() == 1){
-                listaObjetos[i].reducirVida();
-                System.out.println("La vida del objeto: "+i+"  ="+listaObjetos[i].vida);}
+                listaObjetos[i].cambiarPosicion(puntosAdyacentes[0]);}
+                if (listaObjetos[i].retornarClaseInt() == 1){
+                    listaObjetos[i].reducirVida();
+                    System.out.println("La vida del objeto: "+i+"  ="+listaObjetos[i].vida);}
         }
+    }
+        
+    public int getID(double fila, double columna){
+        int agente=getIDAgentes((int) fila,(int) columna);
+        int objeto=getIDObjetos((int)fila, (int)columna);
+        if (agente!=0) return agente;
+        else if (objeto!=0) return objeto;
+        return 0;
     }
 
     public void imprimirPuntos(){
