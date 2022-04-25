@@ -29,6 +29,7 @@ public class Interfaz extends Mapa implements ActionListener{
     }
 
     private void manejoGui(){
+        pintarBase();
         pintarObjetos();
         pintarAgentes();
     }
@@ -68,6 +69,11 @@ public class Interfaz extends Mapa implements ActionListener{
              tablero[(int) agenteBase.posicionAgente.getX()][(int) agenteBase.posicionAgente.getY()].setBackground(agenteBase.color);
          }
      }
+
+    private void pintarBase(){
+        Color color=Color.blue;
+        tablero[0][0].setBackground(color);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

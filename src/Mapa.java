@@ -26,7 +26,7 @@ public class Mapa {
         imprimirPuntos();
     }
     public Point generarPuntoRandom(){
-        Point punto = new Point(generarNumRandom(48, 1), generarNumRandom(48, 1));
+        Point punto = new Point(generarNumRandom(48, 2), generarNumRandom(48, 2));
         return punto;
     }
 
