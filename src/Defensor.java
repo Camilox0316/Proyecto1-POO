@@ -1,4 +1,4 @@
-public class Defensor extends Recolector{
+public class Defensor extends AgenteBase{
     public void atacar(){
         if (posicionAgente.getX()-1>=0){
             //int IDarriba1=getID(posicionAgente.getX()-1, posicionAgente.getY());

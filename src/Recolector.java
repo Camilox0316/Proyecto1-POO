@@ -30,7 +30,7 @@ public class Recolector extends AgenteBase{
             }
         }
     }
-    public void ejecutarR(){
+    public void ejecutar(){
         deteccion();
         huir();
     }

@@ -238,23 +238,22 @@ public class AgenteBase {
         else if (i==5){
             //detecta agente entregando
             if (!lleva_recurso){
-            //posicionAuxRecurso=getposrecurso(posicionAgente.getX()-1, posicionAgente.getY());
+                //posicionAuxRecurso=getposrecurso(posicionAgente.getX()-1, posicionAgente.getY());
             }
             else if (Arriba2==5 && Arriba1==0){ 
-                    posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY());
-                }
+                posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY());
+            }
             else if (Abajo2==5 && Abajo1==0){
-                    posicionAgente.setLocation(posicionAgente.getX()+1,posicionAgente.getY());
-                }
+                posicionAgente.setLocation(posicionAgente.getX()+1,posicionAgente.getY());
+            }
             else if (Derecha2==5 && Derecha1==0){
-                    posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY()+1);
+                posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY()+1);
                 }
             else if (Izquierda2==5 && Izquierda1==0){
-                    posicionAgente.setLocation(posicionAgente.getX(),posicionAgente.getY()-1);
-                }
+                posicionAgente.setLocation(posicionAgente.getX(),posicionAgente.getY()-1);
+            }
         }
-        if (!lleva_recurso || i<5) {acciones(Arriba1,Abajo1,Derecha1,Izquierda1,Arriba2,Abajo2,Derecha2,Izquierda2);}   
-        
+        if (lleva_recurso || i<5) {acciones(Arriba1,Abajo1,Derecha1,Izquierda1,Arriba2,Abajo2,Derecha2,Izquierda2);}   
     }
     
     public int retornarEstadoInt(){
