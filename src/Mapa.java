@@ -7,7 +7,7 @@ public class Mapa {
     int cantidadAgentes;
     AgenteBase listaAgenteBase[];
     Point listaPuntos[];
-    int indiceListaPuntos=0;
+    int indiceListaPuntos=0; //Esto es para agregar las posiciones de los Objetos totalmente en orden, sus 4 puntos de manera seguida
 
     public Mapa(){
         this.cantidadObjetos = 15;
