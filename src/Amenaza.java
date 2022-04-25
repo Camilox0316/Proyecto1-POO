@@ -1,11 +1,9 @@
 import java.awt.Color;
 import java.awt.Point;
 public class Amenaza extends Objeto{
-    public Amenaza (Point punto[], int pborde){
-        super.vida = 10;
-        asignarPos(punto, pborde);
+    public Amenaza (Point punto){
+        asignarVida();
+        asignarPos(punto);
         super.color = Color.red;
     }
-
-    
 }

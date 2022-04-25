@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout; import java.awt.event.*;
+import java.awt.Point;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton; import javax.swing.JFrame;
@@ -17,7 +18,7 @@ public class Interfaz extends Mapa implements ActionListener{
     public Interfaz(){
         ventana = new JFrame("Mapa del enjambre"); ventana.setExtendedState(ventana.MAXIMIZED_BOTH);
         manejoVentana(); 
-        manejoGui();
+        pintarTodosElementos();
     }
     
     private void manejoVentana(){
@@ -29,9 +30,11 @@ public class Interfaz extends Mapa implements ActionListener{
     }
 
     private void manejoGui(){
-        pintarBase();
-        pintarObjetos();
-        pintarAgentes();
+        pintarTableroBlanco();
+        juegoAgentes();
+        juegoObjetos();
+        pintarTodosElementos();
+
     }
     private void crearBoton(){
         panelBoton = new JPanel();
@@ -57,18 +60,34 @@ public class Interfaz extends Mapa implements ActionListener{
     }
     
     private void pintarObjetos(){
+        int y=0;
         for (int i= 0;i<listaObjetos.length;i++){
             Objeto objeto = listaObjetos[i];
             for (int j=0;j<4;j++){
             tablero[(int) objeto.posicion[j].getX()][(int) objeto.posicion[j].getY()].setBackground(objeto.color);
+            if (j==0)
+            tablero[(int) objeto.posicion[j].getX()][(int) objeto.posicion[j].getY()].setText((y++)+"");
+
             }
         }
     }
      private void pintarAgentes(){
          for (AgenteBase agenteBase : listaAgenteBase) {
-             tablero[(int) agenteBase.posicionAgente.getX()][(int) agenteBase.posicionAgente.getY()].setBackground(agenteBase.color);
+            tablero[(int) agenteBase.posicionAgente.getX()][(int) agenteBase.posicionAgente.getY()].setBackground(agenteBase.color);
          }
      }
+
+    private void pintarTableroBlanco(){
+        for (Point punto : listaPuntos) {
+            if (punto.getX()!=-1)
+            tablero[(int) punto.getX()][(int) punto.getY()].setBackground(Color.white);
+        }
+    }
+    private void pintarTodosElementos(){
+        pintarBase();
+        pintarObjetos();
+        pintarAgentes();
+    }
 
     private void pintarBase(){
         Color color=Color.blue;
@@ -78,6 +97,7 @@ public class Interfaz extends Mapa implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(botonSig)){
+            manejoGui();
         } 
     }
 
