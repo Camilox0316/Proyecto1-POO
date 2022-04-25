@@ -111,7 +111,7 @@ public class Defensor extends AgenteBase{
             else if (posicionAuxAmenaza.getX()!=0 && posicionAuxAmenaza.getY()!=0){
                 //Abajo
                 if (posicionAgente.getX() < posicionAuxAmenaza.getX()){
-                    if (Abajo1==0){
+                    if (Arriba1==0){
                         posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                     }
                     else if(posicionAgente.getY() < posicionAuxAmenaza.getY() && Derecha1==0){
@@ -126,7 +126,7 @@ public class Defensor extends AgenteBase{
                 }
                 //Arriba
                 else if (posicionAgente.getX() > posicionAuxAmenaza.getX()){
-                    if (Arriba1==0){
+                    if (Abajo1==0){
                         posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
                     }
                     else if(posicionAgente.getY() < posicionAuxAmenaza.getY() && Derecha1==0){
@@ -178,8 +178,8 @@ public class Defensor extends AgenteBase{
             }
         }
     }
-    public void ejecutar(){
-        deteccion();
+    public void ejecutar(Mapa mapa){//funcion que se ejecita en mapa (ciclo) 
+        deteccion(mapa);
         atacar();
     }
 }

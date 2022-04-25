@@ -141,63 +141,65 @@ public class AgenteBase {
             }
         }
     }
-    public void deteccion(){
+    public void deteccion(Mapa mapa){
+        int IDarriba1, IDabajo1 , IDderecha1, IDizquierda1,IDarriba2,IDabajo2,IDderecha2,IDizquierda2;
+        
         if (posicionAgente.getX()-1>=0){
-            //int IDarriba1=getID(posicionAgente.getX()-1, posicionAgente.getY());
+            IDarriba1=mapa.getID(posicionAgente.getX()-1, posicionAgente.getY());
         }
         else{
-            //int IDArriba1=8;
+            IDarriba1=8;
         }
 
         if (posicionAgente.getX()+1<=49){
-            //int IDabajo1=getID(posicionAgente.getX()+1, posicionAgente.getY());
+            IDabajo1=mapa.getID(posicionAgente.getX()+1, posicionAgente.getY());
         }
         else{
-            //int IDabajo1=8;
+            IDabajo1=8;
         }
 
         if (posicionAgente.getY()+1<=49){
-            //int IDderecha1=getID(posicionAgente.getX(), posicionAgente.getY()+1);
+            IDderecha1=mapa.getID(posicionAgente.getX(), posicionAgente.getY()+1);
         }
         else{
-            //int IDderecha1=8;
+            IDderecha1=8;
         }
 
         if (posicionAgente.getY()-1>=0){
-            //int IDizquierda1=getID(posicionAgente.getX(), posicionAgente.getY()-1);
+            IDizquierda1=mapa.getID(posicionAgente.getX(), posicionAgente.getY()-1);
         }
         else{
-            //int IDizquierda1=8;
+            IDizquierda1=8;
         }
         
         if (posicionAgente.getX()-2>=0){
-            //int IDarriba2=getID(posicionAgente.getX()-2, posicionAgente.getY());
+            IDarriba2=mapa.getID(posicionAgente.getX()-2, posicionAgente.getY());
         }
         else{
-            //int IDArriba2=8;
+            IDarriba2=8;
         }
 
         if (posicionAgente.getX()+2<=49){
-            //int IDabajo2=getID(posicionAgente.getX()+2, posicionAgente.getY());
+            IDabajo2=mapa.getID(posicionAgente.getX()+2, posicionAgente.getY());
         }
         else{
-            //int IDabajo2=8;
+            IDabajo2=8;
         }
 
         if (posicionAgente.getY()+2<=49){
-            //int IDderecha2=getID(posicionAgente.getX(), posicionAgente.getY()+2);
+            IDderecha2=mapa.getID(posicionAgente.getX(), posicionAgente.getY()+2);
         }
         else{
-            //int IDderecha2=8;
+            IDderecha2=8;
         }
 
         if (posicionAgente.getY()-2>=0){
-            //int IDizquierda2=getID(posicionAgente.getX(), posicionAgente.getY()-2);
+            IDizquierda2=mapa.getID(posicionAgente.getX(), posicionAgente.getY()-2);
         }
         else{
-            //int IDizquierda2=8;
+            IDizquierda2=8;
         }
-        //cambio_estado(IDarriba1, IDabajo1, IDizquierda1, IDderecha1, IDarriba2, IDabajo2, IDizquierda2, IDderecha2);
+        cambio_estado(IDarriba1, IDabajo1, IDizquierda1, IDderecha1, IDarriba2, IDabajo2, IDizquierda2, IDderecha2);
     }
     public int[] seEncuentra(int listaEnteros[], int pbuscado){
         int resultado[] = new int[2];
