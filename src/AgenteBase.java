@@ -1,7 +1,6 @@
 import java.awt.Point;
 import java.lang.Math;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.RestoreAction;
 public class AgenteBase {
     public Point posicionAgente;
     protected Point posicionBase;
@@ -230,6 +229,7 @@ public class AgenteBase {
         }
         else if (i==3){
             //detecta agente alterado
+            //posicionAuxAmenaza.setLocation(getposrecurso(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]));
         }
         else if (i==4){
             //detecta agente recolectando
@@ -261,5 +261,8 @@ public class AgenteBase {
         else if (estado == "recolectando") return 4;
         else if (estado == "entregando") return 5;
         return 0;
+    }
+    public void ejecutar(){
+        System.out.println("hola");
     }
 }

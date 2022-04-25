@@ -1,4 +1,5 @@
 public class Defensor extends AgenteBase{
+
     public void atacar(){
         if (posicionAgente.getX()-1>=0){
             //int IDarriba1=getID(posicionAgente.getX()-1, posicionAgente.getY());
@@ -55,6 +56,7 @@ public class Defensor extends AgenteBase{
         else{
             //int IDizquierda2=8;
         }
+        //Arriba es deteccion ver como arreglar ...
         if (estado=="alterado"){
             if (IDarriba1==1 || IDabajo1==1 || IDderecha1==1 || IDizquierda1==1){
                 //reducir vida amenaza;
@@ -107,7 +109,69 @@ public class Defensor extends AgenteBase{
                 }
             }
             else if (posicionAuxAmenaza.getX()!=0 && posicionAuxAmenaza.getY()!=0){
-
+                //Abajo
+                if (posicionAgente.getX() < posicionAuxAmenaza.getX()){
+                    if (Abajo1==0){
+                        posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
+                    }
+                    else if(posicionAgente.getY() < posicionAuxAmenaza.getY() && Derecha1==0){
+                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
+                    }
+                    else if(posicionAgente.getY() > posicionAuxAmenaza.getY() && Izquierda1==0){
+                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
+                    }
+                    else if(Arriba1==0){
+                        posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
+                    }
+                }
+                //Arriba
+                else if (posicionAgente.getX() > posicionAuxAmenaza.getX()){
+                    if (Arriba1==0){
+                        posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
+                    }
+                    else if(posicionAgente.getY() < posicionAuxAmenaza.getY() && Derecha1==0){
+                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
+                    }
+                    else if(posicionAgente.getY() > posicionAuxAmenaza.getY() && Izquierda1==0){
+                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
+                    }
+                    else if(Abajo1==0){
+                        posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
+                    }
+                }
+                //Derecha
+                else if (posicionAgente.getY() < posicionAuxAmenaza.getY()){
+                    if (Derecha1==0){
+                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
+                    }
+                    else if(posicionAgente.getX() < posicionAuxAmenaza.getX() && Abajo1==0){
+                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
+                    }
+                    else if(posicionAgente.getX() > posicionAuxAmenaza.getX() && Arriba1==0){
+                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
+                    }
+                    else if(Izquierda1==0){
+                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
+                    }
+                }
+                //Izquierda
+                else if (posicionAgente.getY() > posicionAuxAmenaza.getY()){
+                    if (Izquierda1==0){
+                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
+                    }
+                    else if(posicionAgente.getX() < posicionAuxAmenaza.getX() && Abajo1==0){
+                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
+                    }
+                    else if(posicionAgente.getX() > posicionAuxAmenaza.getX() && Arriba1==0){
+                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
+                    }
+                    else if(Derecha1==0){
+                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
+                    }
+                }
+                else{
+                    posicionAuxRecurso.setLocation(0,0);
+                }
             }
             else{
                 estado="buscando";
