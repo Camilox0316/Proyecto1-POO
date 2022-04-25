@@ -200,11 +200,7 @@ public class Mapa {
                 listaObjetos[i].asignarVida();
                 listaObjetos[i].cambiarPosicion(puntosAdyacentes[0]);
             }
-            if (listaObjetos[i].retornarClaseInt() == 1){
-                listaObjetos[i].reducirVida();
-                System.out.println("La vida del objeto: "+i+"  ="+listaObjetos[i].vida);}
         }
-        System.out.println("Se recorren los objetos");
     }
 
     public void imprimirPuntos(){
