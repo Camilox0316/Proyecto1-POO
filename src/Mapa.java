@@ -65,7 +65,6 @@ public class Mapa {
     public boolean encontrarPunto(Point puntoBuscado, Point plistaPuntos[]){ //Es para los agentes
         for (Point punto : plistaPuntos) {
             if (punto.equals(puntoBuscado))
-            System.out.println(true);
             return true;
         }
         return false;
@@ -96,7 +95,6 @@ public class Mapa {
     public boolean encontrarPuntos(Point puntosAdyacentes[]){ //Es para los objetos
         for (int i=0;i<listaPuntos.length;i++){
             if (encontrarPunto(listaPuntos[i], puntosAdyacentes)){
-                System.out.println(true);
                 return true;}
         }
         return false;
