@@ -8,7 +8,7 @@ public class Mapa {
     AgenteBase listaAgenteBase[];
     Point listaPuntos[];
     int indiceListaPuntos=0; //Esto es para agregar las posiciones de los Objetos totalmente en orden, sus 4 puntos de manera seguida
-
+    //0 -> 74
     public Mapa(){
         this.cantidadObjetos = 15;
         listaObjetos = new Objeto[cantidadObjetos];
@@ -65,6 +65,7 @@ public class Mapa {
     public boolean encontrarPunto(Point puntoBuscado, Point plistaPuntos[]){ //Es para los agentes
         for (Point punto : plistaPuntos) {
             if (punto.equals(puntoBuscado))
+            System.out.println(true);
             return true;
         }
         return false;
@@ -95,6 +96,7 @@ public class Mapa {
     public boolean encontrarPuntos(Point puntosAdyacentes[]){ //Es para los objetos
         for (int i=0;i<listaPuntos.length;i++){
             if (encontrarPunto(listaPuntos[i], puntosAdyacentes)){
+                System.out.println(true);
                 return true;}
         }
         return false;
@@ -200,6 +202,9 @@ public class Mapa {
                 listaObjetos[i].asignarVida();
                 listaObjetos[i].cambiarPosicion(puntosAdyacentes[0]);
             }
+            if (listaObjetos[i].retornarClaseInt() == 1){
+                listaObjetos[i].reducirVida();
+                System.out.println("La vida del objeto: "+i+"  ="+listaObjetos[i].vida);}
         }
     }
 
