@@ -8,15 +8,7 @@ public class AgenteBase {
     public Point posicionAuxRecurso;
     protected boolean lleva_recurso;
     public String estado;
-    public AgenteBase(){// cambiar a defe y recolt
-        posicionAgente = new Point();
-        posicionBase = new Point();
-        posicionAuxAmenaza = new Point();
-        posicionAuxRecurso = new Point();
-        lleva_recurso = false;
-        estado = new String();
-        this.estado="buscando";
-    }
+    
     public void acciones(int Arriba1, int Abajo1, int Derecha1, int Izquierda1,int Arriba2, int Abajo2, int Derecha2, int Izquierda2){
         if (estado=="buscando"){
             if (posicionAuxRecurso.getX()!=0 && posicionAuxRecurso.getY()!=0){
@@ -199,7 +191,7 @@ public class AgenteBase {
         else{
             IDizquierda2=8;
         }
-        cambio_estado(IDarriba1, IDabajo1, IDizquierda1, IDderecha1, IDarriba2, IDabajo2, IDizquierda2, IDderecha2);
+        cambio_estado(IDarriba1, IDabajo1, IDizquierda1, IDderecha1, IDarriba2, IDabajo2, IDizquierda2, IDderecha2, mapa);
     }
     public int[] seEncuentra(int listaEnteros[], int pbuscado){
         int resultado[] = new int[2];
@@ -212,7 +204,7 @@ public class AgenteBase {
         resultado[0] = 0; resultado[1] = -1;
         return resultado;
     }
-    public void cambio_estado(int Arriba1, int Abajo1, int Izquierda1, int Derecha1, int Arriba2, int Abajo2, int Izquierda2, int Derecha2){
+    public void cambio_estado(int Arriba1, int Abajo1, int Izquierda1, int Derecha1, int Arriba2, int Abajo2, int Izquierda2, int Derecha2, Mapa mapa){
         //Determinar Estado 
         int coordenadasX[] = {-1, -2, 1, 2, 0, 0, 0, 0}; int coordenadasY[] = {0, 0, 0, 0, 1, 2, -1, -2};
         int arregloEnteros[] = {Arriba1, Arriba2, Abajo1, Abajo2,  Derecha1, Derecha2, Izquierda1, Izquierda2};
@@ -231,16 +223,16 @@ public class AgenteBase {
         }
         else if (i==3){
             //detecta agente alterado
-            //posicionAuxAmenaza.setLocation(getposrecurso(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]));
+            posicionAuxAmenaza.setLocation(mapa.getPosAuxiliar(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]));
         }
         else if (i==4){
             //detecta agente recolectando
-            //posicionAuxRecurso.setLocation(getposrecurso(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]));
+            posicionAuxRecurso.setLocation(mapa.getPosAuxiliar(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]));
         }
         else if (i==5){
             //detecta agente entregando
             if (!lleva_recurso){
-                //posicionAuxRecurso=getposrecurso(posicionAgente.getX()-1, posicionAgente.getY());
+                posicionAuxRecurso=mapa.getPosAuxiliar(posicionAgente.getX()-1, posicionAgente.getY());
             }
             else if (Arriba2==5 && Arriba1==0){ 
                 posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY());

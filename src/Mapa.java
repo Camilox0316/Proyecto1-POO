@@ -114,8 +114,20 @@ public class Mapa {
         if (agente!=0) return agente;
         else if (objeto!=0) return objeto;
         return 0;
+    }
 
-
+    public Point getPosAuxiliar(double fila, double columna){
+        Point punto = new Point((int)fila, (int) columna);
+        int i;
+        for (i=0; i<listaAgenteBase.length;i++){
+            if (listaAgenteBase[i].posicionAgente.equals(punto)){
+                if (listaAgenteBase[i].retornarEstadoInt()==3){
+                    return listaAgenteBase[i].posicionAuxAmenaza;
+                }
+                break;
+            }
+        }
+        return listaAgenteBase[i].posicionAuxRecurso;
     }
 
     public void imprimirPuntos(){
