@@ -52,6 +52,7 @@ public class Interfaz extends Mapa implements ActionListener{
         for (int i=0; i<filasColumnas;i++){
             for (int j=0; j<filasColumnas;j++){
             JLabel etiqueta = new JLabel(); etiqueta.setOpaque(true);
+            etiqueta.setBackground(Color.white);
             etiqueta.setBorder(borde);
             tablero[i][j] = etiqueta;
             panelLabel.add(etiqueta);}
