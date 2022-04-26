@@ -3,7 +3,7 @@ import java.lang.Math;
 import java.awt.Color;
 
 
-public class AgenteBase {
+public abstract class AgenteBase {
     public Point posicionAgente;
     protected Point posicionBase;
     public Point posicionAuxAmenaza;
@@ -13,25 +13,18 @@ public class AgenteBase {
     
     public Color color;
     
-    public void colocarPos(int fila, int columna, int indicadorAtributo){
-
-        if (indicadorAtributo==1) posicionAgente.setLocation(posicionAgente.getX()+fila, posicionAgente.getY()+columna);
-        else if (indicadorAtributo == 2 ) posicionAuxAmenaza.setLocation(posicionAgente.getX()+fila, posicionAgente.getY()+columna);
-        else posicionAuxRecurso.setLocation(posicionAgente.getX()+fila, posicionAgente.getY()+columna);
-    }
-    public void acciones(int Arriba1, int Abajo1, int Derecha1, int Izquierda1,int Arriba2, int Abajo2, int Derecha2, int Izquierda2){
+    public void acciones(int Arriba1, int Abajo1, int Derecha1, int Izquierda1,int Arriba2, int Abajo2, int Derecha2, int Izquierda2,Mapa mapa, Objeto objeto){
         if (estado=="buscando"){
             if (posicionAuxRecurso.getX()!=0 && posicionAuxRecurso.getY()!=0){
                 //Abajo
                 if (posicionAgente.getX() < posicionAuxRecurso.getX()){
                     if (Abajo1==0){
-                        colocarPos(1,0,1);
                         posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                     }
-                    else if(posicionAgente.getY() < posicionAuxRecurso.getY() && Derecha1==0){
+                    else if(posicionAgente.getY() <= posicionAuxRecurso.getY() && Derecha1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
                     }
-                    else if(posicionAgente.getY() > posicionAuxRecurso.getY() && Izquierda1==0){
+                    else if(posicionAgente.getY() >= posicionAuxRecurso.getY() && Izquierda1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
                     }
                     else if(Arriba1==0){
@@ -43,10 +36,10 @@ public class AgenteBase {
                     if (Arriba1==0){
                         posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
                     }
-                    else if(posicionAgente.getY() < posicionAuxRecurso.getY() && Derecha1==0){
+                    else if(posicionAgente.getY() <= posicionAuxRecurso.getY() && Derecha1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
                     }
-                    else if(posicionAgente.getY() > posicionAuxRecurso.getY() && Izquierda1==0){
+                    else if(posicionAgente.getY() >= posicionAuxRecurso.getY() && Izquierda1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
                     }
                     else if(Abajo1==0){
@@ -58,11 +51,11 @@ public class AgenteBase {
                     if (Derecha1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
                     }
-                    else if(posicionAgente.getX() < posicionAuxRecurso.getX() && Abajo1==0){
-                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
+                    else if(posicionAgente.getX() <= posicionAuxRecurso.getX() && Abajo1==0){
+                        posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                     }
-                    else if(posicionAgente.getX() > posicionAuxRecurso.getX() && Arriba1==0){
-                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
+                    else if(posicionAgente.getX() >= posicionAuxRecurso.getX() && Arriba1==0){
+                        posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
                     }
                     else if(Izquierda1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
@@ -73,11 +66,11 @@ public class AgenteBase {
                     if (Izquierda1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
                     }
-                    else if(posicionAgente.getX() < posicionAuxRecurso.getX() && Abajo1==0){
-                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
+                    else if(posicionAgente.getX() <= posicionAuxRecurso.getX() && Abajo1==0){
+                        posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                     }
-                    else if(posicionAgente.getX() > posicionAuxRecurso.getX() && Arriba1==0){
-                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
+                    else if(posicionAgente.getX() >= posicionAuxRecurso.getX() && Arriba1==0){
+                        posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
                     }
                     else if(Derecha1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
@@ -114,7 +107,8 @@ public class AgenteBase {
         }
         else if (estado=="recolectando"){
             if (Arriba1==2 || Abajo1==2 || Derecha1==2 || Izquierda1==2){
-                //reducir vida recurso
+                //reducir vida
+                if (coincideObjeto(posicionAuxRecurso, objeto.posicion)) objeto.reducirVida();
                 estado="entregando";
                 lleva_recurso=true;
             }
@@ -130,82 +124,93 @@ public class AgenteBase {
             else if (Izquierda2==2 && Izquierda1==0){
                 posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
             }
-            else{
-                //colocarPos(fila[i], columna[i], 1);
-            }
         }
-        else if (estado=="entregando" || lleva_recurso==true){
+        else if (estado=="entregando"){
             if (posicionAgente.getX()==0 && posicionAgente.getY()==0){
                 estado="buscando";
                 lleva_recurso=false;
             }
-            if (Arriba1==0){
+            if (Arriba1==0 || posicionAgente.getX()-1==0){
                 posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
             }
-            else if(Izquierda1==0){
+            else if(Izquierda1==0|| posicionAgente.getY()-1==0){
                 posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
             }
         }
     }
-    public void deteccion(Mapa mapa){
+    public int[] deteccion(Mapa mapa, Objeto objeto){
         int IDarriba1, IDabajo1 , IDderecha1, IDizquierda1,IDarriba2,IDabajo2,IDderecha2,IDizquierda2;
         
         if (posicionAgente.getX()-1>=0){
             IDarriba1=mapa.getID(posicionAgente.getX()-1, posicionAgente.getY());
+            System.out.println(1);
         }
         else{
             IDarriba1=8;
+            System.out.println(false);
         }
 
         if (posicionAgente.getX()+1<=49){
             IDabajo1=mapa.getID(posicionAgente.getX()+1, posicionAgente.getY());
+            System.out.println(2);
         }
         else{
-            IDabajo1=8;
+            IDabajo1=8; System.out.println(false);
         }
 
         if (posicionAgente.getY()+1<=49){
             IDderecha1=mapa.getID(posicionAgente.getX(), posicionAgente.getY()+1);
+            System.out.println(3);
         }
         else{
-            IDderecha1=8;
+            IDderecha1=8; System.out.println(false);
         }
 
         if (posicionAgente.getY()-1>=0){
             IDizquierda1=mapa.getID(posicionAgente.getX(), posicionAgente.getY()-1);
+            System.out.println(4);
         }
         else{
-            IDizquierda1=8;
+            IDizquierda1=8; System.out.println(false);
         }
         
         if (posicionAgente.getX()-2>=0){
             IDarriba2=mapa.getID(posicionAgente.getX()-2, posicionAgente.getY());
+            System.out.println(5);
         }
         else{
-            IDarriba2=8;
+            IDarriba2=8; System.out.println(false);
         }
 
         if (posicionAgente.getX()+2<=49){
             IDabajo2=mapa.getID(posicionAgente.getX()+2, posicionAgente.getY());
+            System.out.println(6);
         }
         else{
-            IDabajo2=8;
+            IDabajo2=8;System.out.println(false);
         }
 
         if (posicionAgente.getY()+2<=49){
             IDderecha2=mapa.getID(posicionAgente.getX(), posicionAgente.getY()+2);
+            System.out.println(7);
         }
         else{
-            IDderecha2=8;
+            IDderecha2=8;System.out.println(false);
         }
 
         if (posicionAgente.getY()-2>=0){
             IDizquierda2=mapa.getID(posicionAgente.getX(), posicionAgente.getY()-2);
+            System.out.println(8);
         }
         else{
-            IDizquierda2=8;
+            IDizquierda2=8;System.out.println(false);
         }
-        cambio_estado(IDarriba1, IDabajo1, IDizquierda1, IDderecha1, IDarriba2, IDabajo2, IDizquierda2, IDderecha2, mapa);
+        int[] posiciones= {
+            IDarriba1, IDabajo1, IDizquierda1, IDderecha1, IDarriba2, IDabajo2, IDizquierda2, IDderecha2
+        };
+        cambio_estado(IDarriba1, IDabajo1, IDizquierda1, IDderecha1, IDarriba2, IDabajo2, IDizquierda2, IDderecha2, mapa, objeto);
+        return posiciones;
+        
     }
     public int[] seEncuentra(int listaEnteros[], int pbuscado){
         int resultado[] = new int[2];
@@ -218,7 +223,7 @@ public class AgenteBase {
         resultado[0] = 0; resultado[1] = -1;
         return resultado;
     }
-    public void cambio_estado(int Arriba1, int Abajo1, int Izquierda1, int Derecha1, int Arriba2, int Abajo2, int Izquierda2, int Derecha2, Mapa mapa){
+    public void cambio_estado(int Arriba1, int Abajo1, int Izquierda1, int Derecha1, int Arriba2, int Abajo2, int Izquierda2, int Derecha2, Mapa mapa, Objeto objeto){
         //Determinar Estado 
         int coordenadasX[] = {-1, -2, 1, 2, 0, 0, 0, 0}; int coordenadasY[] = {0, 0, 0, 0, 1, 2, -1, -2};
         int arregloEnteros[] = {Arriba1, Arriba2, Abajo1, Abajo2,  Derecha1, Derecha2, Izquierda1, Izquierda2};
@@ -227,51 +232,67 @@ public class AgenteBase {
             flag = seEncuentra(arregloEnteros, i);
             if (flag[0]==1){ break;}
         }
+        System.out.println("------------------Estado-------------------------");
         if (i==1){
             estado="alterado";
-            colocarPos(coordenadasX[flag[1]], coordenadasY[flag[1]], 2);
+            print(1+"");
             posicionAuxAmenaza.setLocation(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]);
         }
-        else if (i==2){
-            estado="recolectando";
+        else if (i==2 && lleva_recurso==false){
+            estado="recolectando"; print(2+"");
             posicionAuxRecurso.setLocation(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]);
         }
         else if (i==3){
             //detecta agente alterado
+            print(3+"");
             posicionAuxAmenaza.setLocation(mapa.getPosAuxiliar(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]));
         }
         else if (i==4){
             //detecta agente recolectando
+            print(4+"");
             posicionAuxRecurso.setLocation(mapa.getPosAuxiliar(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]));
         }
         else if (i==5){
+            print(5+"");
             //detecta agente entregando
             if (!lleva_recurso){
-                posicionAuxRecurso=mapa.getPosAuxiliar(posicionAgente.getX()-1, posicionAgente.getY());
+                posicionAuxRecurso.setLocation(mapa.getPosAuxiliar(posicionAgente.getX()-1, posicionAgente.getY())); print(5+"a");
             }
             else if (Arriba2==5 && Arriba1==0){ 
-                posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY());
+                posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY()); print(5+"b");
             }
             else if (Abajo2==5 && Abajo1==0){
-                posicionAgente.setLocation(posicionAgente.getX()+1,posicionAgente.getY());
+                posicionAgente.setLocation(posicionAgente.getX()+1,posicionAgente.getY()); print(5+"c");
             }
             else if (Derecha2==5 && Derecha1==0){
-                posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY()+1);
+                posicionAgente.setLocation(posicionAgente.getX(),posicionAgente.getY()+1); print(5+"d");
                 }
             else if (Izquierda2==5 && Izquierda1==0){
-                posicionAgente.setLocation(posicionAgente.getX(),posicionAgente.getY()-1);
+                posicionAgente.setLocation(posicionAgente.getX(),posicionAgente.getY()-1); print(5+"e");
             }
         }
-        if (lleva_recurso || i<5) {acciones(Arriba1,Abajo1,Derecha1,Izquierda1,Arriba2,Abajo2,Derecha2,Izquierda2);}   
+        if (!lleva_recurso || i<5||estado=="entregando") {acciones(Arriba1,Abajo1,Derecha1,Izquierda1,Arriba2,Abajo2,Derecha2,Izquierda2,mapa, objeto); print("aa");}   
+        System.out.println("------------------EstadoF-------------------------");
     }
     
     public int retornarEstadoInt(){
         if (estado == "alterado") return 3;
         else if (estado == "recolectando") return 4;
         else if (estado == "entregando") return 5;
-        return 0;
+        return 3;
     }
-    public void ejecutar(){
-        System.out.println("hola");
+    public void ejecutar(Mapa mapa){
+
+    }
+    
+    public boolean coincideObjeto(Point ppuntoBuscado, Point parregloBuscar[]){
+        for (Point point : parregloBuscar) {
+            if (point.equals(ppuntoBuscado)) return true;
+        }
+        return false;
+    }
+    
+    public void print(String a){
+        System.out.println(a);
     }
 }

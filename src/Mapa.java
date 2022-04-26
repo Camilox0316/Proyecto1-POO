@@ -190,18 +190,29 @@ public class Mapa {
 
     public void juegoAgentes(){
         System.out.println("Se recorren los agentes");
+        int x=1;
+        for (AgenteBase agenteBase : listaAgenteBase) {
+            System.out.println("---------------------------------");
+            System.out.println("Iteracion: "+(x++));
+            Point puntoBusc = agenteBase.posicionAgente;
+            System.out.println("Puntos Antes: "+puntoBusc);
+            agenteBase.ejecutar(this);
+            reemplazarPunto(puntoBusc, agenteBase.posicionAgente);
+            System.out.println("Punto despues: "+agenteBase.posicionAgente);
+            System.out.println("---------------------------------");
+            System.out.println(agenteBase.estado);
+        }
+        
     }
 
     public void juegoObjetos(){
+        int x=1;
         for (int i=0;i<cantidadObjetos;i++){
             if (listaObjetos[i].vida <=0){
                 Point puntosAdyacentes[] = generarPtsAdyNoEncontrado();
                 reemplazarPuntos(listaObjetos[i].posicion, puntosAdyacentes);
                 listaObjetos[i].asignarVida();
                 listaObjetos[i].cambiarPosicion(puntosAdyacentes[0]);}
-                if (listaObjetos[i].retornarClaseInt() == 1){
-                    listaObjetos[i].reducirVida();
-                    System.out.println("La vida del objeto: "+i+"  ="+listaObjetos[i].vida);}
         }
     }
         
@@ -224,6 +235,7 @@ public class Mapa {
                 break;
             }
         }
+        if (i>=15){i=14;}
         return listaAgenteBase[i].posicionAuxRecurso;
     }
 

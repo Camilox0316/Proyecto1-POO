@@ -73,15 +73,18 @@ public class Interfaz extends Mapa implements ActionListener{
         }
     }
      private void pintarAgentes(){
+         int x=1;
          for (AgenteBase agenteBase : listaAgenteBase) {
             tablero[(int) agenteBase.posicionAgente.getX()][(int) agenteBase.posicionAgente.getY()].setBackground(agenteBase.color);
+            tablero[(int) agenteBase.posicionAgente.getX()][(int) agenteBase.posicionAgente.getY()].setText((x++)+"");;
          }
      }
 
     private void pintarTableroBlanco(){
-        for (Point punto : listaPuntos) {
-            if (punto.getX()!=-1)
-            tablero[(int) punto.getX()][(int) punto.getY()].setBackground(Color.white);
+        for (int fila=0;fila<filasColumnas;fila++){
+            for (int columna=0;columna<filasColumnas;columna++){
+                tablero[fila][columna].setBackground(Color.white);
+            }
         }
     }
     private void pintarTodosElementos(){
