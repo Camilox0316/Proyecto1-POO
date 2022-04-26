@@ -1,5 +1,18 @@
+import java.awt.Point;
+import java.awt.Color;
+
 public class Defensor extends AgenteBase{
 
+    public Defensor(Point punto){
+        posicionAgente = new Point(punto);
+        posicionBase = new Point(0,0);
+        posicionAuxAmenaza = new Point(0,0);
+        posicionAuxRecurso = new Point(0,0);
+        lleva_recurso = false;
+        estado = "buscando";
+        super.color=Color.green;
+    }
+    /*
     public void atacar(){
         if (posicionAgente.getX()-1>=0){
             //int IDarriba1=getID(posicionAgente.getX()-1, posicionAgente.getY());
@@ -181,5 +194,6 @@ public class Defensor extends AgenteBase{
     public void ejecutar(Mapa mapa){//funcion que se ejecita en mapa (ciclo) 
         deteccion(mapa);
         atacar();
-    }
+    }*/
+
 }

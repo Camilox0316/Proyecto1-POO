@@ -1,5 +1,19 @@
+import java.awt.Color;
+import java.awt.Point;
+
 public class Recolector extends AgenteBase{
-    public void huir(){
+    
+    public Recolector(Point punto){
+        posicionAgente = new Point(punto);
+        posicionBase = new Point(0,0);
+        posicionAuxAmenaza = new Point(0,0);
+        posicionAuxRecurso = new Point(0,0);
+        lleva_recurso = false;
+        estado = "buscando";
+        super.color=Color.yellow;
+    }
+    
+    /*public void huir(){
         if (estado=="alterado"){
             if (Arriba1==1){
                 if (Abajo1==0){
@@ -96,5 +110,5 @@ public class Recolector extends AgenteBase{
     public void ejecutar(){
         deteccion();
         huir();
-    }
+    }*/
 }

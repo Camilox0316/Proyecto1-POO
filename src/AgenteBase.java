@@ -1,5 +1,7 @@
 import java.awt.Point;
 import java.lang.Math;
+import java.awt.Color;
+
 
 public class AgenteBase {
     public Point posicionAgente;
@@ -9,12 +11,21 @@ public class AgenteBase {
     protected boolean lleva_recurso;
     public String estado;
     
+    public Color color;
+    
+    public void colocarPos(int fila, int columna, int indicadorAtributo){
+
+        if (indicadorAtributo==1) posicionAgente.setLocation(posicionAgente.getX()+fila, posicionAgente.getY()+columna);
+        else if (indicadorAtributo == 2 ) posicionAuxAmenaza.setLocation(posicionAgente.getX()+fila, posicionAgente.getY()+columna);
+        else posicionAuxRecurso.setLocation(posicionAgente.getX()+fila, posicionAgente.getY()+columna);
+    }
     public void acciones(int Arriba1, int Abajo1, int Derecha1, int Izquierda1,int Arriba2, int Abajo2, int Derecha2, int Izquierda2){
         if (estado=="buscando"){
             if (posicionAuxRecurso.getX()!=0 && posicionAuxRecurso.getY()!=0){
                 //Abajo
                 if (posicionAgente.getX() < posicionAuxRecurso.getX()){
                     if (Abajo1==0){
+                        colocarPos(1,0,1);
                         posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                     }
                     else if(posicionAgente.getY() < posicionAuxRecurso.getY() && Derecha1==0){
@@ -119,6 +130,9 @@ public class AgenteBase {
             else if (Izquierda2==2 && Izquierda1==0){
                 posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
             }
+            else{
+                //colocarPos(fila[i], columna[i], 1);
+            }
         }
         else if (estado=="entregando" || lleva_recurso==true){
             if (posicionAgente.getX()==0 && posicionAgente.getY()==0){
@@ -215,6 +229,7 @@ public class AgenteBase {
         }
         if (i==1){
             estado="alterado";
+            colocarPos(coordenadasX[flag[1]], coordenadasY[flag[1]], 2);
             posicionAuxAmenaza.setLocation(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]);
         }
         else if (i==2){
