@@ -180,7 +180,12 @@ public class Defensor extends AgenteBase{
     public void ejecutar(Mapa mapa){//funcion que se ejecita en mapa (ciclo) 
         int i;
         for (i=0; i<mapa.cantidadObjetos;i++){
-            if(coincideObjeto(posicionAuxAmenaza, mapa.listaObjetos[i].posicion) || coincideObjeto(posicionAuxRecurso, mapa.listaObjetos[i].posicion)){
+            if(coincideObjeto(posicionAuxAmenaza, mapa.listaObjetos[i].posicion)){
+                print("ataco amenaza");
+                break;
+            }
+            else if (coincideObjeto(posicionAuxRecurso, mapa.listaObjetos[i].posicion) && estado=="recolectando"){
+                print("ataco recurso");
                 break;
             }
         

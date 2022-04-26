@@ -256,7 +256,7 @@ public abstract class AgenteBase {
             print(5+"");
             //detecta agente entregando
             if (!lleva_recurso){
-                posicionAuxRecurso.setLocation(mapa.getPosAuxiliar(posicionAgente.getX()-1, posicionAgente.getY())); print(5+"a");
+                posicionAuxRecurso.setLocation(mapa.getPosAuxiliar(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]])); print(5+"a");
             }
             else if (Arriba2==5 && Arriba1==0){ 
                 posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY()); print(5+"b");
