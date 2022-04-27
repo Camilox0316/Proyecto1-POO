@@ -10,69 +10,22 @@ public class Defensor extends AgenteBase{
         posicionAuxRecurso = new Point(0,0);
         lleva_recurso = false;
         estado = "buscando";
-        super.color=Color.green;
+        super.color=Color.yellow;
     }
-    /*
-    public void atacar(){
-        if (posicionAgente.getX()-1>=0){
-            //int IDarriba1=getID(posicionAgente.getX()-1, posicionAgente.getY());
-        }
-        else{
-            //int IDArriba1=8;
-        }
+    public void atacar(int posiciones[], Objeto objeto){
+        int IDarriba1=posiciones[0];
+        int IDabajo1=posiciones[1];
+        int IDderecha1=posiciones[3];
+        int IDizquierda1=posiciones[2];
+        int IDarriba2=posiciones[4];
+        int IDabajo2=posiciones[5];
+        int IDderecha2=posiciones[7];
+        int IDizquierda2=posiciones[6];
 
-        if (posicionAgente.getX()+1<=49){
-            //int IDabajo1=getID(posicionAgente.getX()+1, posicionAgente.getY());
-        }
-        else{
-            //int IDabajo1=8;
-        }
-
-        if (posicionAgente.getY()+1<=49){
-            //int IDderecha1=getID(posicionAgente.getX(), posicionAgente.getY()+1);
-        }
-        else{
-            //int IDderecha1=8;
-        }
-
-        if (posicionAgente.getY()-1>=0){
-            //int IDizquierda1=getID(posicionAgente.getX(), posicionAgente.getY()-1);
-        }
-        else{
-            //int IDizquierda1=8;
-        }
-        
-        if (posicionAgente.getX()-2>=0){
-            //int IDarriba2=getID(posicionAgente.getX()-2, posicionAgente.getY());
-        }
-        else{
-            //int IDArriba2=8;
-        }
-
-        if (posicionAgente.getX()+2<=49){
-            //int IDabajo2=getID(posicionAgente.getX()+2, posicionAgente.getY());
-        }
-        else{
-            //int IDabajo2=8;
-        }
-
-        if (posicionAgente.getY()+2<=49){
-            //int IDderecha2=getID(posicionAgente.getX(), posicionAgente.getY()+2);
-        }
-        else{
-            //int IDderecha2=8;
-        }
-
-        if (posicionAgente.getY()-2>=0){
-            //int IDizquierda2=getID(posicionAgente.getX(), posicionAgente.getY()-2);
-        }
-        else{
-            //int IDizquierda2=8;
-        }
-        //Arriba es deteccion ver como arreglar ...
         if (estado=="alterado"){
             if (IDarriba1==1 || IDabajo1==1 || IDderecha1==1 || IDizquierda1==1){
-                //reducir vida amenaza;
+                if (coincideObjeto(posicionAuxAmenaza, objeto.posicion))
+                objeto.reducirVida();
             }
             else if (IDarriba2==1){
                 if (IDarriba1==0){
@@ -83,6 +36,9 @@ public class Defensor extends AgenteBase{
                 }
                 else if (IDizquierda1==0){
                     posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
+                }
+                else if(IDabajo1==0){
+                    posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                 }
             }
             else if (IDabajo2==1){
@@ -95,9 +51,12 @@ public class Defensor extends AgenteBase{
                 else if (IDizquierda1==0){
                     posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
                 }
+                else if(IDarriba1==0){
+                    posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
+                }
             }
             else if (IDderecha2==1){
-                if (IDerecha1==0){
+                if (IDderecha1==0){
                     posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
                 }
                 else if (IDarriba1==0){
@@ -107,12 +66,12 @@ public class Defensor extends AgenteBase{
                     posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                 }
                 else if (IDizquierda1==0){
-                    posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
+                    posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
                 }
             }
             else if (IDizquierda2==1){
                 if (IDizquierda1==0){
-                    posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
+                    posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
                 }
                 else if (IDarriba1==0){
                     posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
@@ -120,80 +79,105 @@ public class Defensor extends AgenteBase{
                 else if (IDabajo1==0){
                     posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                 }
+                else if (IDizquierda1==0){
+                    posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
+                }
             }
             else if (posicionAuxAmenaza.getX()!=0 && posicionAuxAmenaza.getY()!=0){
                 //Abajo
                 if (posicionAgente.getX() < posicionAuxAmenaza.getX()){
-                    if (Arriba1==0){
+                    if (IDabajo1==0){
                         posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                     }
-                    else if(posicionAgente.getY() < posicionAuxAmenaza.getY() && Derecha1==0){
+                    else if(posicionAgente.getY() < posicionAuxAmenaza.getY() && IDderecha1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
                     }
-                    else if(posicionAgente.getY() > posicionAuxAmenaza.getY() && Izquierda1==0){
+                    else if(posicionAgente.getY() > posicionAuxAmenaza.getY() && IDizquierda1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
                     }
-                    else if(Arriba1==0){
+                    else if(IDarriba1==0){
                         posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
                     }
                 }
                 //Arriba
                 else if (posicionAgente.getX() > posicionAuxAmenaza.getX()){
-                    if (Abajo1==0){
+                    if (IDarriba1==0){
                         posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
                     }
-                    else if(posicionAgente.getY() < posicionAuxAmenaza.getY() && Derecha1==0){
+                    else if(posicionAgente.getY() < posicionAuxAmenaza.getY() && IDderecha1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
                     }
-                    else if(posicionAgente.getY() > posicionAuxAmenaza.getY() && Izquierda1==0){
+                    else if(posicionAgente.getY() > posicionAuxAmenaza.getY() && IDizquierda1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
                     }
-                    else if(Abajo1==0){
+                    else if(IDabajo1==0){
                         posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                     }
                 }
                 //Derecha
                 else if (posicionAgente.getY() < posicionAuxAmenaza.getY()){
-                    if (Derecha1==0){
+                    if (IDderecha1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
                     }
-                    else if(posicionAgente.getX() < posicionAuxAmenaza.getX() && Abajo1==0){
-                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
+                    else if(posicionAgente.getX() < posicionAuxAmenaza.getX() && IDabajo1==0){
+                        posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                     }
-                    else if(posicionAgente.getX() > posicionAuxAmenaza.getX() && Arriba1==0){
-                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
+                    else if(posicionAgente.getX() > posicionAuxAmenaza.getX() && IDarriba1==0){
+                        posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
                     }
-                    else if(Izquierda1==0){
+                    else if(IDizquierda1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
                     }
                 }
                 //Izquierda
                 else if (posicionAgente.getY() > posicionAuxAmenaza.getY()){
-                    if (Izquierda1==0){
+                    if (IDizquierda1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
                     }
-                    else if(posicionAgente.getX() < posicionAuxAmenaza.getX() && Abajo1==0){
-                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
+                    else if(posicionAgente.getX() < posicionAuxAmenaza.getX() && IDabajo1==0){
+                        posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                     }
-                    else if(posicionAgente.getX() > posicionAuxAmenaza.getX() && Arriba1==0){
-                        posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
+                    else if(posicionAgente.getX() > posicionAuxAmenaza.getX() && IDarriba1==0){
+                        posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
                     }
-                    else if(Derecha1==0){
+                    else if(IDderecha1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
                     }
                 }
                 else{
-                    posicionAuxRecurso.setLocation(0,0);
+                    posicionAuxAmenaza.setLocation(0,0);
+                    if (lleva_recurso==true){
+                        estado="entregando";
+                    }
+                    else{
+                        estado="buscando";
+                    }
                 }
             }
             else{
-                estado="buscando";
+                posicionAuxAmenaza.setLocation(0,0);
+                if (lleva_recurso==true){
+                    estado="entregando";
+                }
+                else{
+                    estado="buscando";
+                }
             }
         }
     }
     public void ejecutar(Mapa mapa){//funcion que se ejecita en mapa (ciclo) 
-        deteccion(mapa);
-        atacar();
-    }*/
+        int i;
+        for (i=0; i<mapa.cantidadObjetos;i++){
+            if(coincideObjeto(posicionAuxAmenaza, mapa.listaObjetos[i].posicion)){
+                break;
+            }
+            else if (coincideObjeto(posicionAuxRecurso, mapa.listaObjetos[i].posicion) && estado=="recolectando"){
+                break;
+            }
+        
+        }
+        if(i>=15)i=14;
+        atacar(deteccion(mapa, mapa.listaObjetos[i]), mapa.listaObjetos[i]);
+    }
 
 }

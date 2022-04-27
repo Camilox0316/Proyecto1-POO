@@ -66,9 +66,6 @@ public class Interfaz extends Mapa implements ActionListener{
             Objeto objeto = listaObjetos[i];
             for (int j=0;j<4;j++){
             tablero[(int) objeto.posicion[j].getX()][(int) objeto.posicion[j].getY()].setBackground(objeto.color);
-            if (j==0)
-            tablero[(int) objeto.posicion[j].getX()][(int) objeto.posicion[j].getY()].setText((y++)+"");
-
             }
         }
     }
@@ -79,9 +76,10 @@ public class Interfaz extends Mapa implements ActionListener{
      }
 
     private void pintarTableroBlanco(){
-        for (Point punto : listaPuntos) {
-            if (punto.getX()!=-1)
-            tablero[(int) punto.getX()][(int) punto.getY()].setBackground(Color.white);
+        for (int fila=0;fila<filasColumnas;fila++){
+            for (int columna=0;columna<filasColumnas;columna++){
+                tablero[fila][columna].setBackground(Color.white);
+            }
         }
     }
     private void pintarTodosElementos(){

@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Point;
 public class Obstaculo extends Objeto {
     public Obstaculo(Point punto){
+        vida=1;
         asignarPos(punto);
         super.color = Color.BLACK;
     }

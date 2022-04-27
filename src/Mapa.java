@@ -12,7 +12,7 @@ public class Mapa {
     public Mapa(){
         this.cantidadObjetos = 15;
         listaObjetos = new Objeto[cantidadObjetos];
-        this.cantidadAgentes = 15;//generarNumRandom(50, 40);
+        this.cantidadAgentes = 30;//generarNumRandom(50, 40);
         listaAgenteBase = new AgenteBase[cantidadAgentes];
         listaPuntos = new Point[(cantidadObjetos*4)+cantidadAgentes];
         inicializacion();
@@ -23,7 +23,6 @@ public class Mapa {
         inicializarListaPuntos();
         inicializarListaObjetos();
         inicializarListaAgentes();
-        imprimirPuntos();
     }
 
     public Point generarPuntoRandom(){
@@ -82,11 +81,9 @@ public class Mapa {
 
     public void inicializarListaAgentes(){
         Point punto;
-        int aleatorio;
         for (int i=0;i<listaAgenteBase.length;i++) {
             punto = crearAgregarPt();
-            aleatorio = generarNumRandom(2, 0);
-            if (aleatorio==1) listaAgenteBase[i] = new Recolector(punto);
+            if (i+1<=cantidadAgentes/2) listaAgenteBase[i] = new Recolector(punto);
             else listaAgenteBase[i] = new Defensor(punto);
         }
     }
@@ -189,7 +186,12 @@ public class Mapa {
     }
 
     public void juegoAgentes(){
-        System.out.println("Se recorren los agentes");
+        for (AgenteBase agenteBase : listaAgenteBase) {
+            Point puntoBusc = agenteBase.posicionAgente;
+            agenteBase.ejecutar(this);
+            reemplazarPunto(puntoBusc, agenteBase.posicionAgente);
+        }
+        
     }
 
     public void juegoObjetos(){
@@ -198,10 +200,8 @@ public class Mapa {
                 Point puntosAdyacentes[] = generarPtsAdyNoEncontrado();
                 reemplazarPuntos(listaObjetos[i].posicion, puntosAdyacentes);
                 listaObjetos[i].asignarVida();
-                listaObjetos[i].cambiarPosicion(puntosAdyacentes[0]);}
-                if (listaObjetos[i].retornarClaseInt() == 1){
-                    listaObjetos[i].reducirVida();
-                    System.out.println("La vida del objeto: "+i+"  ="+listaObjetos[i].vida);}
+                listaObjetos[i].cambiarPosicion(puntosAdyacentes[0]);
+            }
         }
     }
         
@@ -213,11 +213,20 @@ public class Mapa {
         return 0;
     }
 
-    public void imprimirPuntos(){
-        System.out.println("Impriemiendo puntos: ");
-        for (int i=0;i<listaPuntos.length;i++){
-            System.out.println("Iteracion: "+i);
-            System.out.println(listaPuntos[i].getX()+", "+listaPuntos[i].getY());
+    public Point getPosAuxiliar(double fila, double columna){
+        Point punto = new Point((int)fila, (int) columna);
+        int i;
+        for (i=0; i<listaAgenteBase.length;i++){
+            if (listaAgenteBase[i].posicionAgente.equals(punto)){
+                if (listaAgenteBase[i].retornarEstadoInt()==3){
+                    return listaAgenteBase[i].posicionAuxAmenaza;
+                }
+                break;
+            }
         }
+        if (i>=15){i=14;}
+        return listaAgenteBase[i].posicionAuxRecurso;
     }
+
+    
 }
