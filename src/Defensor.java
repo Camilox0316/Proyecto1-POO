@@ -26,10 +26,8 @@ public class Defensor extends AgenteBase{
             if (IDarriba1==1 || IDabajo1==1 || IDderecha1==1 || IDizquierda1==1){
                 if (coincideObjeto(posicionAuxAmenaza, objeto.posicion))
                 objeto.reducirVida();
-                print("ataque a :"+objeto.posicion[0]+objeto.posicion[1]+objeto.posicion[2]+objeto.posicion[3]);
             }
             else if (IDarriba2==1){
-                print("detecte arriba2 A");
                 if (IDarriba1==0){
                     posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
                 }
@@ -44,7 +42,6 @@ public class Defensor extends AgenteBase{
                 }
             }
             else if (IDabajo2==1){
-                print("detecte abajo2 A");
                 if (IDabajo1==0){
                     posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                 }
@@ -59,7 +56,6 @@ public class Defensor extends AgenteBase{
                 }
             }
             else if (IDderecha2==1){
-                print("detecte derecha2 A");
                 if (IDderecha1==0){
                     posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
                 }
@@ -74,7 +70,6 @@ public class Defensor extends AgenteBase{
                 }
             }
             else if (IDizquierda2==1){
-                print("detecte izquierda2 A");
                 if (IDizquierda1==0){
                     posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
                 }
@@ -89,10 +84,8 @@ public class Defensor extends AgenteBase{
                 }
             }
             else if (posicionAuxAmenaza.getX()!=0 && posicionAuxAmenaza.getY()!=0){
-                print("Estoy buscando amenaza");
                 //Abajo
                 if (posicionAgente.getX() < posicionAuxAmenaza.getX()){
-                    print("Amenaza abajo mio");
                     if (IDabajo1==0){
                         posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                     }
@@ -108,7 +101,6 @@ public class Defensor extends AgenteBase{
                 }
                 //Arriba
                 else if (posicionAgente.getX() > posicionAuxAmenaza.getX()){
-                    print("Amenaza arriba mio");
                     if (IDarriba1==0){
                         posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
                     }
@@ -124,7 +116,6 @@ public class Defensor extends AgenteBase{
                 }
                 //Derecha
                 else if (posicionAgente.getY() < posicionAuxAmenaza.getY()){
-                    print("Amenaza derecha mia");
                     if (IDderecha1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
                     }
@@ -140,7 +131,6 @@ public class Defensor extends AgenteBase{
                 }
                 //Izquierda
                 else if (posicionAgente.getY() > posicionAuxAmenaza.getY()){
-                    print("Amenaza izqu mia");
                     if (IDizquierda1==0){
                         posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
                     }
@@ -155,7 +145,6 @@ public class Defensor extends AgenteBase{
                     }
                 }
                 else{
-                    print("no encontre a la amenaza");
                     posicionAuxAmenaza.setLocation(0,0);
                     if (lleva_recurso==true){
                         estado="entregando";
@@ -166,7 +155,6 @@ public class Defensor extends AgenteBase{
                 }
             }
             else{
-                print("no hay amenaza cerca ni tengo guardada");
                 posicionAuxAmenaza.setLocation(0,0);
                 if (lleva_recurso==true){
                     estado="entregando";
@@ -181,11 +169,9 @@ public class Defensor extends AgenteBase{
         int i;
         for (i=0; i<mapa.cantidadObjetos;i++){
             if(coincideObjeto(posicionAuxAmenaza, mapa.listaObjetos[i].posicion)){
-                print("ataco amenaza");
                 break;
             }
             else if (coincideObjeto(posicionAuxRecurso, mapa.listaObjetos[i].posicion) && estado=="recolectando"){
-                print("ataco recurso");
                 break;
             }
         

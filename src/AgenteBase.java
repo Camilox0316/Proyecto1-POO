@@ -143,67 +143,58 @@ public abstract class AgenteBase {
         
         if (posicionAgente.getX()-1>=0){
             IDarriba1=mapa.getID(posicionAgente.getX()-1, posicionAgente.getY());
-            System.out.println(1);
         }
         else{
             IDarriba1=8;
-            System.out.println(false);
         }
 
         if (posicionAgente.getX()+1<=49){
             IDabajo1=mapa.getID(posicionAgente.getX()+1, posicionAgente.getY());
-            System.out.println(2);
         }
         else{
-            IDabajo1=8; System.out.println(false);
+            IDabajo1=8; 
         }
 
         if (posicionAgente.getY()+1<=49){
             IDderecha1=mapa.getID(posicionAgente.getX(), posicionAgente.getY()+1);
-            System.out.println(3);
         }
         else{
-            IDderecha1=8; System.out.println(false);
+            IDderecha1=8; 
         }
 
         if (posicionAgente.getY()-1>=0){
             IDizquierda1=mapa.getID(posicionAgente.getX(), posicionAgente.getY()-1);
-            System.out.println(4);
         }
         else{
-            IDizquierda1=8; System.out.println(false);
+            IDizquierda1=8; 
         }
         
         if (posicionAgente.getX()-2>=0){
             IDarriba2=mapa.getID(posicionAgente.getX()-2, posicionAgente.getY());
-            System.out.println(5);
         }
         else{
-            IDarriba2=8; System.out.println(false);
+            IDarriba2=8; 
         }
 
         if (posicionAgente.getX()+2<=49){
             IDabajo2=mapa.getID(posicionAgente.getX()+2, posicionAgente.getY());
-            System.out.println(6);
         }
         else{
-            IDabajo2=8;System.out.println(false);
+            IDabajo2=8;
         }
 
         if (posicionAgente.getY()+2<=49){
             IDderecha2=mapa.getID(posicionAgente.getX(), posicionAgente.getY()+2);
-            System.out.println(7);
         }
         else{
-            IDderecha2=8;System.out.println(false);
+            IDderecha2=8;
         }
 
         if (posicionAgente.getY()-2>=0){
             IDizquierda2=mapa.getID(posicionAgente.getX(), posicionAgente.getY()-2);
-            System.out.println(8);
         }
         else{
-            IDizquierda2=8;System.out.println(false);
+            IDizquierda2=8;
         }
         int[] posiciones= {
             IDarriba1, IDabajo1, IDizquierda1, IDderecha1, IDarriba2, IDabajo2, IDizquierda2, IDderecha2
@@ -232,47 +223,41 @@ public abstract class AgenteBase {
             flag = seEncuentra(arregloEnteros, i);
             if (flag[0]==1){ break;}
         }
-        System.out.println("------------------Estado-------------------------");
         if (i==1){
             estado="alterado";
-            print(1+"");
             posicionAuxAmenaza.setLocation(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]);
         }
         else if (i==2 && lleva_recurso==false){
-            estado="recolectando"; print(2+"");
+            estado="recolectando"; 
             posicionAuxRecurso.setLocation(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]);
         }
         else if (i==3){
             //detecta agente alterado
-            print(3+"");
             posicionAuxAmenaza.setLocation(mapa.getPosAuxiliar(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]));
         }
         else if (i==4){
             //detecta agente recolectando
-            print(4+"");
             posicionAuxRecurso.setLocation(mapa.getPosAuxiliar(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]]));
         }
         else if (i==5){
-            print(5+"");
             //detecta agente entregando
             if (!lleva_recurso){
-                posicionAuxRecurso.setLocation(mapa.getPosAuxiliar(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]])); print(5+"a");
+                posicionAuxRecurso.setLocation(mapa.getPosAuxiliar(posicionAgente.getX()+coordenadasX[flag[1]], posicionAgente.getY()+coordenadasY[flag[1]])); 
             }
             else if (Arriba2==5 && Arriba1==0){ 
-                posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY()); print(5+"b");
+                posicionAgente.setLocation(posicionAgente.getX()-1,posicionAgente.getY()); 
             }
             else if (Abajo2==5 && Abajo1==0){
-                posicionAgente.setLocation(posicionAgente.getX()+1,posicionAgente.getY()); print(5+"c");
+                posicionAgente.setLocation(posicionAgente.getX()+1,posicionAgente.getY());
             }
             else if (Derecha2==5 && Derecha1==0){
-                posicionAgente.setLocation(posicionAgente.getX(),posicionAgente.getY()+1); print(5+"d");
+                posicionAgente.setLocation(posicionAgente.getX(),posicionAgente.getY()+1);
                 }
             else if (Izquierda2==5 && Izquierda1==0){
-                posicionAgente.setLocation(posicionAgente.getX(),posicionAgente.getY()-1); print(5+"e");
+                posicionAgente.setLocation(posicionAgente.getX(),posicionAgente.getY()-1);
             }
         }
-        if (!lleva_recurso || i<5||estado=="entregando") {acciones(Arriba1,Abajo1,Derecha1,Izquierda1,Arriba2,Abajo2,Derecha2,Izquierda2,mapa, objeto); print("aa");}   
-        System.out.println("------------------EstadoF-------------------------");
+        if (!lleva_recurso || i<5||estado=="entregando") {acciones(Arriba1,Abajo1,Derecha1,Izquierda1,Arriba2,Abajo2,Derecha2,Izquierda2,mapa, objeto); }
     }
     
     public int retornarEstadoInt(){
@@ -292,7 +277,4 @@ public abstract class AgenteBase {
         return false;
     }
     
-    public void print(String a){
-        System.out.println(a);
-    }
 }

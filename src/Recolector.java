@@ -22,9 +22,7 @@ public class Recolector extends AgenteBase{
         int Derecha2=posiciones[7];
         int Izquierda2=posiciones[6];
         if (estado=="alterado"){
-            print("estoy alterado");
             if (Arriba1==1){
-                print("A arriba1");
                 if (Abajo1==0){
                     posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                 }
@@ -36,7 +34,6 @@ public class Recolector extends AgenteBase{
                 } 
             }
             else if (Abajo1==1){
-                print("A abajo 1");
                 if (Arriba1==0){
                     posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
                 }
@@ -48,7 +45,6 @@ public class Recolector extends AgenteBase{
                 }
             }
             else if (Izquierda1==1){
-                print("A izq 1");
                 if(Derecha1==0){
                     posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
                 }
@@ -60,7 +56,6 @@ public class Recolector extends AgenteBase{
                 }
             }
             else if (Derecha1==1){
-                print("A derech 1");
                 if(Izquierda1==0){
                     posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
                 }
@@ -72,7 +67,6 @@ public class Recolector extends AgenteBase{
                 }
             }
             else if (Arriba2==1){
-                print("A arriba2");
                 if (Abajo1==0){
                     posicionAgente.setLocation(posicionAgente.getX()+1, posicionAgente.getY());
                 }
@@ -85,7 +79,6 @@ public class Recolector extends AgenteBase{
 
             }
             else if (Abajo2==1){
-                print("A abajo2");
                 if (Arriba1==0){
                     posicionAgente.setLocation(posicionAgente.getX()-1, posicionAgente.getY());
                 }
@@ -98,7 +91,6 @@ public class Recolector extends AgenteBase{
 
             }
             else if (Izquierda2==1){
-                print("A izqui2");
                 if(Derecha1==0){
                     posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()+1);
                 }
@@ -110,7 +102,6 @@ public class Recolector extends AgenteBase{
                 }
             }
             else if (Derecha2==1){
-                print("A derech2");
                 if(Izquierda1==0){
                     posicionAgente.setLocation(posicionAgente.getX(), posicionAgente.getY()-1);
                 }
@@ -122,13 +113,10 @@ public class Recolector extends AgenteBase{
                 }
             }
             else{
-                print("No veo amenaza");
                 if (lleva_recurso==true){
                     estado="entregando";
-                    print("sigo entregando");
                 }
                 else{
-                    print("sigo buscando");
                     estado="buscando";
                 }
             }

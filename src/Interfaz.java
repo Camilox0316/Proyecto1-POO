@@ -66,17 +66,12 @@ public class Interfaz extends Mapa implements ActionListener{
             Objeto objeto = listaObjetos[i];
             for (int j=0;j<4;j++){
             tablero[(int) objeto.posicion[j].getX()][(int) objeto.posicion[j].getY()].setBackground(objeto.color);
-            if (j==0)
-            tablero[(int) objeto.posicion[j].getX()][(int) objeto.posicion[j].getY()].setText((y++)+"");
-
             }
         }
     }
      private void pintarAgentes(){
-         int x=1;
          for (AgenteBase agenteBase : listaAgenteBase) {
             tablero[(int) agenteBase.posicionAgente.getX()][(int) agenteBase.posicionAgente.getY()].setBackground(agenteBase.color);
-            tablero[(int) agenteBase.posicionAgente.getX()][(int) agenteBase.posicionAgente.getY()].setText((x++)+"");;
          }
      }
 
