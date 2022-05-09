@@ -83,7 +83,7 @@ public class Mapa {
         Point punto;
         for (int i=0;i<listaAgenteBase.length;i++) {
             punto = crearAgregarPt();
-            if (i+1<=cantidadAgentes/2) listaAgenteBase[i] = new Recolector(punto);
+            if (i+1<=cantidadAgentes/2) listaAgenteBase[i] = new Recolector(punto); 
             else listaAgenteBase[i] = new Defensor(punto);
         }
     }
